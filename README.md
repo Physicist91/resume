@@ -6,9 +6,9 @@ Baseline steps for data collection (we can call it ETL pipeline):
 - use selenium to crawl user profile
 - use BeatifulSoup to parse the HTML
 - clean & normalize the extracted HTML
-- save the normalized (but still raw) data to Mongo DB
+- save the normalized (but still raw) data to MongoDB (or any NoSQL DB that can store unstructured text data) 
 
-Alternative to MongoDB is a NoSQL DB that can store unstructured text data. We also need RabbitMQ to contain events of changes (any CRUD operation) to the MongoDB. We can deploy the ETL pipeline and the message queue service to GCP, and use freemium serverless version of MongoDB.
+Furthermore, we also need RabbitMQ to contain events of changes (any CRUD operation) to the MongoDB. We can deploy the ETL pipeline and the message queue service to GCP, and use freemium serverless version of MongoDB.
 
 ## Streaming
 
