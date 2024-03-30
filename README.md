@@ -8,7 +8,7 @@ Baseline steps for data collection (we can call it ETL pipeline):
 - clean & normalize the extracted HTML
 - save the normalized (but still raw) data to Mongo DB
 
-Alternative to MongoDB is a NoSQL DB that can stored unstructured text data. We also need RabbitMQ to contain events of changes (any CRUD operation) to the MongoDB. We can deploy the ETL pipeline and the message queue service to GCP, and use freemium serverless version of MongoDB.
+Alternative to MongoDB is a NoSQL DB that can store unstructured text data. We also need RabbitMQ to contain events of changes (any CRUD operation) to the MongoDB. We can deploy the ETL pipeline and the message queue service to GCP, and use freemium serverless version of MongoDB.
 
 ## Streaming
 
