@@ -1,4 +1,5 @@
-# Resumify: Tailored Resume Generator for Your Dream Job
+# Resumify
+### Tailored Resume Generator for Your Dream Job
 
 Baseline steps for ETL pipeline:
 - log in using user credentials
