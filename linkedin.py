@@ -16,6 +16,12 @@ from crawlers.base import BaseAbstractCrawler
 from documents import PostDocument
 from errors import ImproperlyConfigured
 
+# set up the Google Cloud Logging python client library
+import google.cloud.logging
+client = google.cloud.logging.Client()
+client.setup_logging()
+# use Python’s standard logging library to send logs to GCP
+import logging
 
 class LinkedInCrawler(BaseAbstractCrawler):
 
@@ -65,7 +71,7 @@ class LinkedInCrawler(BaseAbstractCrawler):
         post_images = self._extract_image_urls(buttons)
 
         posts = self._extract_posts(post_elements, post_images)
-        logger.info(f"Found {len(posts)} posts for profile: {link}")
+        logging.info(f"Found {len(posts)} posts for profile: {link}")
 
         self.driver.close()
 
@@ -78,7 +84,7 @@ class LinkedInCrawler(BaseAbstractCrawler):
             ]
         )
 
-        logger.info(f"Finished scrapping data for profile: {link}")
+        logging.info(f"Finished scrapping data for profile: {link}")
 
     def _scrape_section(self, soup: BeautifulSoup, *args, **kwargs):
         """ finds a specific section in the LinkedIn profile represented by soup,
@@ -104,7 +110,7 @@ class LinkedInCrawler(BaseAbstractCrawler):
             if img_tag and "src" in img_tag.attrs:
                 post_images[f"Post_{i}"] = img_tag["src"]
             else:
-                logger.warning("No image found in this button")
+                logging.warning("No image found in this button")
         return post_images
 
     def _get_page_content(self, url: str) -> BeautifulSoup:
