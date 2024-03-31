@@ -1,0 +1,63 @@
+Job Title: Senior Data Scientist
+Company: Monetary Authority of Singapore (MAS) 
+Job Description:
+What The Role Is
+
+The Monetary Authority of Singapore (MAS) is Singapore’s central bank and integrated financial regulator.
+
+As central bank, MAS promotes sustained, non-inflationary economic growth through the conduct of monetary policy and close macroeconomic surveillance and analysis. It manages Singapore’s exchange rate, official foreign reserves, and liquidity in the banking sector.
+
+As an integrated financial supervisor, MAS fosters a sound financial services sector through its prudential oversight of all financial institutions in Singapore – banks, insurers, capital market intermediaries, financial advisors, and stock exchanges. It is also responsible for well-functioning financial markets, sound conduct, and investor education.
+
+MAS also works with the financial industry to promote Singapore as a dynamic international financial centre. It facilitates the development of infrastructure, adoption of technology, and upgrading of skills in the financial industry.
+
+Join us now, if you have a genuine interest in making an impact to help shape Singapore’s economic and financial landscape.
+
+What You Will Be Working On
+
+MAS’ Data Analytics & Engineering Division (DAE) is a specialised team within the Data Technology and Architecture (DTA) Department within the Technology Group (TG) in MAS.
+
+DAE’s primary purpose is to partner internal MAS functions to generate business value through the enablement of effective and efficient use of data driven insights for business value creation. This is achieved through effective strategies, strong in-house development capability, standardization of processes, tooling enablement, establishing a product development mindset, promoting knowledge sharing within MAS and complementary external collaborations.
+
+As a DAE Senior Data Scientist, You Will Be Working In a Fast-paced Environment That Would Require The Ability To Manage Multiple Priorities And Needs Of Stakeholders, As Well As The Agility To Respond To Changes And Developments. Specifically, You Are Expected To
+
+Be a technically skilled leader grounded on best practices
+
+Be accountable for and drive assigned data science related initiatives together with a team of expert data scientists
+Provide technical leadership to junior data scientists within DAE, and data scientists residing within MAS business departments
+Be directly responsible for the delivery of the assigned data science products within MAS
+Adhere to data science best practices, and standards for documentation, validation, and reproducibility of data science work across the team and MAS
+Adhere to AI governance related policies, and ensure safe and responsible development of such products
+Stay up to date on emerging data science trends, methods, and technologies
+
+
+Be an effective communicator and collaborative partner
+
+Collaborate effectively with DAE’s Production Engineering (PE) and Product Management (PM) teams to deliver enterprise grade data science products
+Interface with assigned MAS business groups, and support them in identifying opportunities to deliver additional business value through data science products
+Work with MAS Academy to deliver both targeted analytics training and broad-based awareness programs to all MAS staff
+Promote the growth of the Data Analytics Community of Practitioners (DACoP) through organisation of workshops, training sessions, and forums to foster greater awareness of analytics within MAS
+
+
+Be a supportive team player
+
+Support any TG, DTA, DAE and/or DS Team initiatives as required
+Strengthen DAE’s positive and open working norms
+
+
+What We Are Looking For
+
+Minimum bachelor’s degree in Statistics, Mathematics, Computer Science, or another quantitative field. Master or PhD degree in stated fields is a plus
+10-15 years of relevant working experience developing data science products within public service and/or financial services industry independently
+Deep understanding and hands-on experience in applying classification, prediction, forecasting, anomaly detection, graph analytics, deep learning, and NLP to solve business problems effectively
+Ability to develop enterprise grade data science products, which typically involves frontend and backend programming on top of data science model development
+Knowledge of MLOps best practices
+Experience developing and deploying models and data science products on the cloud
+Familiarity with various database technologies. Working experience with both structured and unstructured datasets is a must
+Comfortable working on multifaceted problems in an agile environment. Demonstrate ability in overcoming business and technical constraints and deliver value adding data science products
+Strong presentation and communication skills. Ability to explain technical concepts to a non-technical / business / senior management audience is a must
+
+
+As part of the shortlisting process for this role, you may be required to complete a medical declaration and/or undergo further assessment.
+
+This is a 2 year contract position. All applicants will be notified on whether they are shortlisted or not within 4 weeks of the closing date of this job posting .

@@ -1,0 +1,48 @@
+Job title: "Senior Backend Engineer"
+Company: "SQE (S-Quantum Engine)"
+
+Description:
+
+The S-Quantum Engine is Sinarmas Financial Services' Digital Factory - focused on transforming one of Indonesia's largest financial services groups to match the increasingly digital demands today's financial services sector.
+
+This position reports to the Head of Engineering of the S-Quantum Engine. The Strategy and Digital division is responsible for identifying, managing, and executing digital related initiatives for a collection of over fifty operating companies.
+
+
+
+Specifically, the division shall:
+
+    Identify, seed and grow digital-first businesses for Sinarmas Financial Services companies
+    Consolidate and transform digital channels of existing portfolio of financial services products
+    Cultivate relevant companies and partners that accelerates the group’s overall agenda
+    Establish organization wide next generation digital resources (infrastructure and talent)
+    Set the agenda for the group’s transformation to a digital and data first company
+
+
+
+
+What You Need to Do
+
+The Senior Back-End Engineers will drive the work of software development, with focus on the server side-side of the applications. This position requires large-scale systems awareness, technical skill, planning, great communication skill, experience with software development across various platform.
+
+You are expected to:
+
+    Work closely with Product, Design and Frontend teams to gather requirements, design and build new products, platforms and features
+    Contribute to every part of our product pipeline from inception to delivery
+    Write clean, reusable, maintainable code with a good code coverage
+    Drive best practices and engineering excellence.
+    Act as the technical subject matter expert to mentor fellow engineers and demonstrate technical expertise.
+    Take initiative and implement processes to create efficiency for your team and yourself
+    Excellent communication skills: Demonstrated ability to explain complex technical issues to both technical and non-technical audiences
+    A team-oriented approach, with a willingness to receive feedback and iterate on them
+
+
+What You Need to Have
+
+    5+ Years of experience in software development
+    Skill sets needed: programming (Java/GoLang), databases (MySQL/PostgreSQL/Cassandra)
+    Experience with AWS or GCP is a must
+    Excellent system design skills to build scalable and maintainable systems
+    Good at problem solving and troubleshooting production issues
+    Scalable coding practices including peer code reviews, unit testing, and agile development
+    Practical knowledge of modern development principles and best practices (OOP, design patterns, unit testing, CI/CD)
+
