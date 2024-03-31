@@ -41,7 +41,10 @@ class BaseAbstractCrawler(BaseCrawler):
         pass
 
     def scroll_page(self):
-        """Scroll through the LinkedIn page based on the scroll limit."""
+        """This Python code defines a method scroll_page that scrolls through a LinkedIn page
+        by repeatedly scrolling to the bottom of the page and waiting for a few seconds.
+        It keeps track of the current scroll position and stops when it reaches the specified scroll limit or when the page height no longer increases.
+        """
         current_scroll = 0
         last_height = self.driver.execute_script("return document.body.scrollHeight")
         while True:
