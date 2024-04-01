@@ -14,7 +14,7 @@ import uuid
 from typing import List, Optional
 
 from config import settings
-from db import connection
+from mongodb import connection
 from errors import ImproperlyConfigured
 from pydantic import UUID4, BaseModel, ConfigDict, Field
 from pymongo import errors
