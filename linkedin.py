@@ -12,9 +12,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
 from config import settings
-from crawlers.base import BaseAbstractCrawler
+from basecrawler import BaseAbstractCrawler
 from documents import PostDocument
-from errors import ImproperlyConfigured
 
 # set up the Google Cloud Logging python client library
 import google.cloud.logging
@@ -160,10 +159,8 @@ class LinkedInCrawler(BaseAbstractCrawler):
         """Log in to LinkedIn."""
         self.driver.get("https://www.linkedin.com/login")
         if not settings.LINKEDIN_USERNAME and not settings.LINKEDIN_PASSWORD:
-            raise ImproperlyConfigured(
-                "LinkedIn scraper requires an valid account to perform extraction"
-            )
-
+            raise Exception("Missing LinkedIn credentials. Please set LINKEDIN_USERNAME and LINKEDIN_PASSWORD in your environment.")
+        
         self.driver.find_element(By.ID, "username").send_keys(
             settings.LINKEDIN_USERNAME
         )

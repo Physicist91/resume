@@ -15,7 +15,6 @@ from typing import List, Optional
 
 from config import settings
 from mongodb import connection
-from errors import ImproperlyConfigured
 from pydantic import UUID4, BaseModel, ConfigDict, Field
 from pymongo.errors import WriteError, OperationFailure
 
@@ -134,11 +133,11 @@ class BaseDocument(BaseModel):
     @classmethod
     def _get_collection_name(cls):
         """
-        A method to get the name of the collection. Raises an ImproperlyConfigured exception if the Settings class or its name attribute is missing.
+        A method to get the name of the collection. Raises an exception if the Settings class or its name attribute is missing.
         Returns the name of the collection from the Settings class.
         """
         if not hasattr(cls, "Settings") or not hasattr(cls.Settings, "name"):
-            raise ImproperlyConfigured(
+            raise Exception(
                 "Document should define an Settings configuration class with the name of the collection."
             )
 
