@@ -8,7 +8,10 @@ Baseline steps for data collection (we can call it ETL pipeline):
 - clean & normalize the extracted HTML
 - save the normalized (but still raw) data to MongoDB (or any NoSQL DB that can store unstructured text data) 
 
-Furthermore, we also need RabbitMQ to contain events of changes (any CRUD operation) to the MongoDB. We can deploy the ETL pipeline and the message queue service to GCP, and use freemium serverless version of MongoDB.
+TODO:
+- **MongoDB Atlas** (done) https://cloud.mongodb.com/v2/660abf1ce806e029b03e3496#/overview
+- Dispatch crawlers to Cloud Run
+- Setup RabbitMQ that captures CRUD operations to the MongoDB and is listened to by the streaming pipeline
 
 ## Streaming
 
