@@ -17,7 +17,7 @@ from config import settings
 from mongodb import connection
 from errors import ImproperlyConfigured
 from pydantic import UUID4, BaseModel, ConfigDict, Field
-from pymongo import errors
+from pymongo.errors import WriteError, OperationFailure
 
 # set up the Google Cloud Logging python client library
 import google.cloud.logging
