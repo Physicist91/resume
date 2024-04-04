@@ -1,8 +1,7 @@
 # Resumify
 ### Tailored Resume Generator for Your Dream Job
 
-TODO:
-- **MongoDB Atlas** (done) https://cloud.mongodb.com/v2/660abf1ce806e029b03e3496#/overview
+TODO: 
 - Dispatch crawlers to Cloud Run (Kevin)
 
 ## ETL
@@ -14,7 +13,9 @@ Baseline steps for data collection (each platform would have its own crawler put
 - clean & normalize the extracted HTML
 - save the normalized (but still raw) data to MongoDB
 
-The NoSQL database (here Mongo) acts as a data collector for the various sources.
+The [MongoDB Atlas](https://cloud.mongodb.com/v2/660abf1ce806e029b03e3496#/overview) acts as NoSQL DB for the various sources.
+
+Flow: crawlers (python) -> cloud build -> artifact registry -> cloud run
 
 ## Streaming
 
