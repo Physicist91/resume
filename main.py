@@ -24,7 +24,7 @@ _dispatcher.register("linkedin", LinkedInCrawler)
 _dispatcher.register("github", GithubCrawler)
 
 
-def handler(event, context: LambdaContext) -> dict[str, Any]:
+def handler(event) -> dict[str, Any]:
     first_name, last_name = lib.user_to_names(event.get("user"))
     
     user = UserDocument.get_or_create(first_name=first_name, last_name=last_name)
@@ -48,4 +48,4 @@ if __name__ == "__main__":
         "user": "Kevin Siswandi",
         "link": "https://www.linkedin.com/in/kevinsiswandi/",
     }
-    handler(event, None)
+    handler(event)
