@@ -77,7 +77,7 @@ class BaseDocument(BaseModel):
         try:
             result = collection.insert_one(self.to_mongo(**kwargs))
             return result.inserted_id
-        except errors.WriteError as e:
+        except WriteError as e:
             logging.error(f"Failed to insert document {e}")
             return None
 
@@ -102,7 +102,7 @@ class BaseDocument(BaseModel):
             new_instance = cls(**filter_options)
             new_instance = new_instance.save()
             return new_instance
-        except errors.OperationFailure as e:
+        except OperationFailure as e:
             logging.error(f"Failed to retrieve document: {e}")
             return None
 
@@ -125,7 +125,7 @@ class BaseDocument(BaseModel):
                 [doc.to_mongo(**kwargs) for doc in documents]
             )
             return result.inserted_ids
-        except errors.WriteError as e:
+        except WriteError as e:
             logging.error(f"Failed to insert document {e}")
             return None
 
