@@ -58,7 +58,7 @@ class BaseAbstractCrawler(BaseCrawler):
             service=Service(ChromeDriverManager().install()), options=options
         )
 
-    def set_driver_options(self) -> Options:
+    def set_driver_options(self, Options) -> Options:
         return Options()
 
     def login(self):
