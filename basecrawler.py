@@ -49,13 +49,8 @@ class BaseAbstractCrawler(BaseCrawler):
         #self.set_driver_options(options)
         self.scroll_limit = scroll_limit
         self.driver = webdriver.Chrome(
-            service=webdriver.ChromeService("/opt/chromedriver"),
+            service=webdriver.ChromeService("/opt/chromedriver/chromedriver"),
             options=options,
-        )
-
-        self.scroll_limit = scroll_limit
-        self.driver = webdriver.Chrome(
-            service=webdriver.ChromeService("/opt/chromedriver"), options=options
         )
 
     def set_driver_options(self, options: Options) -> Options:
