@@ -12,6 +12,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from abc import ABC, abstractmethod
+from tempfile import mkdtemp
 
 from documents import BaseDocument
 
@@ -26,7 +28,30 @@ class BaseCrawler:
 class BaseAbstractCrawler(BaseCrawler):
 
     def __init__(self, scroll_limit: int = 5):
-        options = self.set_driver_options()
+        options = webdriver.ChromeOptions()
+        options.binary_location = "/opt/google/chrome/chrome"
+        options.add_argument("--no-sandbox")
+        options.add_argument("--headless=new")
+        options.add_argument("--single-process")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--disable-gpu")
+        options.add_argument("--log-level=3")
+        options.add_argument("--disable-popup-blocking")
+        options.add_argument("--disable-notifications")
+        options.add_argument("--disable-dev-tools")
+        options.add_argument("--ignore-certificate-errors")
+        options.add_argument("--no-zygote")
+        options.add_argument(f"--user-data-dir={mkdtemp()}")
+        options.add_argument(f"--data-path={mkdtemp()}")
+        options.add_argument(f"--disk-cache-dir={mkdtemp()}")
+        options.add_argument("--remote-debugging-port=9222")
+
+        self.set_extra_driver_options(options)
+        self.scroll_limit = scroll_limit
+        self.driver = webdriver.Chrome(
+            service=webdriver.ChromeService("/opt/chromedriver"),
+            options=options,
+        )
 
         self.scroll_limit = scroll_limit
         self.driver = webdriver.Chrome(

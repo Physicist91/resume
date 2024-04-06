@@ -6,3 +6,4 @@ google-cloud-logging==3.10.0
 beautifulsoup4==4.12.2
 webdriver-manager==4.0.1
 pydantic-settings==2.2.1
+certifi==2024.2.2

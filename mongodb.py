@@ -9,6 +9,8 @@ client.setup_logging()
 # use Python’s standard logging library to send logs to GCP
 import logging
 
+import certifi
+ca = certifi.where()
 
 class MongoDatabaseConnector:
     _instance: MongoClient | None = None
@@ -16,7 +18,7 @@ class MongoDatabaseConnector:
     def __new__(cls, *args, **kwargs) -> MongoClient:
         if cls._instance is None:
             try:
-                cls._instance = MongoClient(settings.DATABASE_HOST)
+                cls._instance = MongoClient(settings.DATABASE_HOST,tlsCAFile=ca)
             except ConnectionFailure as e:
                 logging.error(f"Couldn't connect to the database: {str(e)}")
                 raise

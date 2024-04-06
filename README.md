@@ -13,7 +13,9 @@ Baseline steps for data collection (each platform would have its own crawler put
 - clean & normalize the extracted HTML
 - save the normalized (but still raw) data to MongoDB
 
-The [MongoDB Atlas](https://cloud.mongodb.com/v2/660abf1ce806e029b03e3496#/overview) acts as NoSQL DB for the various sources.
+Tools used:
+- The [MongoDB Atlas](https://cloud.mongodb.com/v2/660abf1ce806e029b03e3496#/overview) acts as NoSQL DB for the various sources.
+- Google Chrome acts as the web browser. [Install](https://askubuntu.com/questions/1461513/help-with-installing-the-chrome-web-browser-22-04-2-lts) it on the VM.
 
 Flow: crawlers (python) -> cloud build -> artifact registry -> cloud run
 
