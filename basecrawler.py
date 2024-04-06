@@ -46,7 +46,7 @@ class BaseAbstractCrawler(BaseCrawler):
         options.add_argument(f"--disk-cache-dir={mkdtemp()}")
         options.add_argument("--remote-debugging-port=9222")
 
-        self.set_driver_options(options)
+        #self.set_driver_options(options)
         self.scroll_limit = scroll_limit
         self.driver = webdriver.Chrome(
             service=webdriver.ChromeService("/opt/chromedriver"),
@@ -58,8 +58,8 @@ class BaseAbstractCrawler(BaseCrawler):
             service=Service(ChromeDriverManager().install()), options=options
         )
 
-    def set_driver_options(self, Options) -> Options:
-        return Options()
+    def set_driver_options(self, options: Options) -> Options:
+        pass
 
     def login(self):
         pass
