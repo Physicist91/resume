@@ -5,12 +5,6 @@ The handler function is the entry point for Cloud Run. In Cloud Run, the handler
 
 from typing import Any
 import lib
-# set up the Google Cloud Logging python client library
-import google.cloud.logging
-client = google.cloud.logging.Client()
-client.setup_logging()
-# use Python’s standard logging library to send logs to GCP
-import logging
 
 from github import GithubCrawler
 from linkedin import LinkedInCrawler

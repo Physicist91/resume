@@ -1,6 +1,6 @@
 import re
 
-from crawlers.base import BaseCrawler
+from basecrawler import BaseCrawler
 
 
 class CrawlerDispatcher:
