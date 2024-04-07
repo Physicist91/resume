@@ -21,10 +21,14 @@ client = google.cloud.logging.Client()
 client.setup_logging()
 # use Python’s standard logging library to send logs to GCP
 import logging
+cl = logging.getLogger()
+file_handler = logging.FileHandler('linkedin_crawler.log')
+cl.addHandler(file_handler)
 
 class LinkedInCrawler(BaseAbstractCrawler):
 
-    model = PostDocument
+    model_post = PostDocument
+    model_profile = ProfileDocument
 
     def set_driver_options(self) -> Options:
         options = Options()
@@ -74,7 +78,7 @@ class LinkedInCrawler(BaseAbstractCrawler):
 
         self.driver.close()
 
-        self.model.bulk_insert(
+        self.model_post.bulk_insert(
             [
                 PostDocument(
                     platform="linkedin", content=post, author_id=kwargs.get("user")
