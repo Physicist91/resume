@@ -82,6 +82,9 @@ class LinkedInCrawler(BaseAbstractCrawler):
                 for post in posts
             ]
         )
+        
+        instance = self.model_profile(platform="linkedin", content=data, link=link)
+        instance.save()
 
         logging.info(f"Finished scrapping data for profile: {link}")
 
