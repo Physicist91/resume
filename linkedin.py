@@ -13,7 +13,7 @@ from selenium.webdriver.common.by import By
 
 from config import settings
 from basecrawler import BaseAbstractCrawler
-from documents import PostDocument
+from documents import PostDocument, ProfileDocument
 
 # set up the Google Cloud Logging python client library
 import google.cloud.logging
