@@ -3,6 +3,8 @@
 
 TODO: 
 - Dispatch crawlers to Cloud Run (Kevin)
+- Add crawler for RPubs
+- Ability to use papers, theses, certificates, etc as supporting documents/additional info.
 
 ## ETL
 
@@ -17,6 +19,8 @@ Tools used:
 - The [MongoDB Atlas](https://cloud.mongodb.com/v2/660abf1ce806e029b03e3496#/overview) acts as NoSQL DB for the various sources.
 - Google Chrome acts as the web browser. [Install](https://askubuntu.com/questions/1461513/help-with-installing-the-chrome-web-browser-22-04-2-lts) it on the VM.
 - Chrome driver. Instruction [here](https://skolo.online/documents/webscrapping/#step-2-install-chromedriver)
+
+Note for LinkedIN scraping: if it says "Join LinkedIN" as the Name, it has hit an authwall.
 
 Flow: crawlers (python) -> cloud build -> artifact registry -> cloud run
 

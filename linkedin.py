@@ -22,7 +22,7 @@ client.setup_logging()
 # use Python’s standard logging library to send logs to GCP
 import logging
 cl = logging.getLogger()
-file_handler = logging.FileHandler('linkedin_crawler.log')
+file_handler = logging.FileHandler('log/linkedin_crawler.log')
 cl.addHandler(file_handler)
 
 class LinkedInCrawler(BaseAbstractCrawler):
@@ -51,18 +51,19 @@ class LinkedInCrawler(BaseAbstractCrawler):
         """
         print(f"Starting to scrape data for profile: {link}")
 
-        self.login()
+        #self.login()
 
         soup = self._get_page_content(link)
-
+        
         data = {
-            "Name": self._scrape_section(soup, "h1", class_="text-heading-xlarge"),
-            "About": self._scrape_section(soup, "div", class_="display-flex ph5 pv3"),
+            "Name": self._scrape_section(soup, "h1"),
+            "About": self._scrape_section(soup, "div", class_="core-section-container__content break-words"),
             "Main Page": self._scrape_section(soup, "div", {"id": "main-content"}),
-            "Experience": self._scrape_experience(link),
-            "Education": self._scrape_education(link),
+            "Experience": self._scrape_experience(soup),
+            "Education": self._scrape_education(soup),
         }
-
+        
+        logging.info(f"scraped {data}")
         # Scrolling and scraping posts
         self.scroll_page()
         soup = BeautifulSoup(self.driver.page_source, "html.parser")
@@ -77,19 +78,26 @@ class LinkedInCrawler(BaseAbstractCrawler):
         logging.info(f"Found {len(posts)} posts for profile: {link}")
 
         self.driver.close()
-
-        self.model_post.bulk_insert(
-            [
-                PostDocument(
-                    platform="linkedin", content=post, author_id=kwargs.get("user")
-                )
-                for post in posts
-            ]
-        )
         
-        instance = self.model_profile(platform="linkedin", content=data, link=link)
-        instance.save()
-
+        if len(posts) > 0:
+            self.model_post.bulk_insert(
+                [
+                    PostDocument(
+                        platform="linkedin", content=post, author_id=kwargs.get("user")
+                    )
+                    for post in posts
+                ]
+            )
+        
+        logging.info("Saving user info to DB..")
+        
+        try:
+            instance = self.model_profile(platform="linkedin", content=data, link=link, user_id=kwargs.get("user"))
+            instance.save()
+        except:
+            logging.error("Error saving to MongoDB.")
+            raise Exception("Error when saving to MongoDB")
+            
         logging.info(f"Finished scrapping data for profile: {link}")
 
     def _scrape_section(self, soup: BeautifulSoup, *args, **kwargs):
@@ -122,8 +130,31 @@ class LinkedInCrawler(BaseAbstractCrawler):
     def _get_page_content(self, url: str) -> BeautifulSoup:
         """Retrieve the page content of a given URL."""
         self.driver.get(url)
-        time.sleep(5)
-        return BeautifulSoup(self.driver.page_source, "html.parser")
+        
+        # scroll to the bottom to load entire page
+        start = time.time()
+        initialScroll = 0
+        finalScroll = 1000
+        while True:
+            self.driver.execute_script(f"window.scrollTo({initialScroll}, {finalScroll})")
+            # this command scrolls the window starting from
+            # the pixel value stored in the initialScroll 
+            # variable to the pixel value stored at the
+            # finalScroll variable
+            initialScroll = finalScroll
+            finalScroll += 1000
+
+            # we will stop the script for 3 seconds so that 
+            # the data can load
+            time.sleep(3)
+            # You can change it as per your needs and internet speed
+            end = time.time()
+            # We will scroll for 20 seconds.
+            # You can change it as per your needs and internet speed
+            if round(end - start) > 20:
+                break
+        
+        return BeautifulSoup(self.driver.page_source, "lxml")
 
     def _extract_posts(
         self, post_elements: List[Tag], post_images: Dict[str, str]
@@ -147,27 +178,23 @@ class LinkedInCrawler(BaseAbstractCrawler):
             posts_data[f"Post_{i}"] = post_data
         return posts_data
 
-    def _scrape_experience(self, profile_url: str):
+    def _scrape_experience(self, soup: BeautifulSoup, *args, **kwargs):
         """Scrapes the Experience section of the LinkedIn profile."""
-        self.driver.get(profile_url + "/details/experience/")
-        time.sleep(5)
-        soup = BeautifulSoup(self.driver.page_source, "html.parser")
-        experience_content = soup.find("section", {"id": "experience-section"})
+        experience_content = soup.find('section', {'data-section': 'experience'})
+        #experience_content = soup.find("section", {"id": "experience-section"})
         return experience_content.get_text(strip=True) if experience_content else ""
 
-    def _scrape_education(self, profile_url: str) -> str:
-        self.driver.get(profile_url + "/details/education/")
-        time.sleep(5)
-        soup = BeautifulSoup(self.driver.page_source, "html.parser")
-        education_content = soup.find("section", {"id": "education-section"})
+    def _scrape_education(self, soup: BeautifulSoup, *args, **kwargs) -> str:
+        education_content = soup.find("section", {"data-section": "educationsDetails"})
         return education_content.get_text(strip=True) if education_content else ""
-
+    
     def login(self):
         """Log in to LinkedIn."""
         self.driver.get("https://www.linkedin.com/login")
         if not settings.LINKEDIN_USERNAME and not settings.LINKEDIN_PASSWORD:
             raise Exception("Missing LinkedIn credentials. Please set LINKEDIN_USERNAME and LINKEDIN_PASSWORD in your environment.")
         
+        time.sleep(5)
         self.driver.find_element(By.ID, "username").send_keys(
             settings.LINKEDIN_USERNAME
         )
@@ -175,5 +202,6 @@ class LinkedInCrawler(BaseAbstractCrawler):
             settings.LINKEDIN_PASSWORD
         )
         self.driver.find_element(
-            By.CSS_SELECTOR, ".login__form_action_container button"
+            By.CSS_SELECTOR, ".login__form_action_container"
+            #By.XPATH, "//button[@type='submit']"
         ).click()

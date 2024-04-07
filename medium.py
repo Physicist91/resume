@@ -4,6 +4,9 @@ client = google.cloud.logging.Client()
 client.setup_logging()
 # use Python’s standard logging library to send logs to GCP
 import logging
+cl = logging.getLogger()
+file_handler = logging.FileHandler('log/medium_crawler.log')
+cl.addHandler(file_handler)
 
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By

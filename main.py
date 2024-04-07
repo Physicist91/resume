@@ -37,9 +37,35 @@ def handler(event) -> dict[str, Any]:
 if __name__ == "__main__":
     """
     # Development only: run "python main.py" and test locally
+    TODO: add command line arguments
     """
-    event = {
+    kevin_linkedin = {
         "user": "Kevin Siswandi",
         "link": "https://www.linkedin.com/in/kevinsiswandi/",
     }
-    handler(event)
+    adrian_linkedin = {
+        'user': 'Adrian Nugraha Utama',
+        'link' : 'https://www.linkedin.com/in/anuutama'
+    }
+    kevin_medium_latest = {
+        "user": "Kevin Siswandi",
+        "link" : "https://medium.com/@kevinsiswandi/can-we-predict-deadly-chronic-disease-early-using-data-science-d43ac55bea97"
+    }
+    
+    # if medium (bulk insert of past posts) is selected
+    links = [#'https://medium.com/nerd-for-tech/this-interactive-visualization-tool-will-supercharge-your-data-narrative-30a52569acae',
+            #'https://medium.com/@kevinsiswandi/family-tree-of-indonesias-famous-individuals-e2c9ade360a3',
+            #'https://medium.com/@kevinsiswandi/the-data-science-process-135c76c0926b',
+            #'https://medium.com/@kevinsiswandi/a-slice-of-social-psychology-expectations-matter-3b840fc8cf84',
+            'https://medium.com/@kevinsiswandi/agile-methods-kanban-vs-scrum-4d797ee1944',
+            'https://medium.com/@kevinsiswandi/introduction-to-agile-methodology-bd3c7617cdfa',
+            'https://medium.com/@kevinsiswandi/7-steps-to-acing-a-coding-interview-325e034723ab',
+            'https://medium.com/@kevinsiswandi/introduction-to-cell-and-molecular-biology-for-non-biologists-527bb4a95d3f',
+            'https://medium.com/@kevinsiswandi/menu-of-topics-for-a-machine-learning-interview-d7c7c2f81f43',
+            'https://medium.com/@kevinsiswandi/5-tips-for-preparing-for-data-science-interview-78dd38b056e0',
+            'https://medium.com/@kevinsiswandi/on-data-science-data-analysis-and-machine-learning-f00cf6aa98f3',
+            'https://medium.com/@kevinsiswandi/introduction-to-artificial-intelligence-for-medicine-b0fad1aedd5a',
+            'https://medium.com/@kevinsiswandi/tutorial-of-the-star-method-for-answering-behavioural-interview-questions-415a038551cc']
+    for link in links:
+        medium_handler = {'user':'Kevin Siswandi', 'link':link}
+        handler(medium_handler)

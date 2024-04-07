@@ -157,6 +157,7 @@ class ProfileDocument(BaseDocument):
 
     platform: str
     content: dict
+    user_id: str = Field(alias="user_id")
 
     class Settings:
         name = "profile"
