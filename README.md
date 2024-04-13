@@ -6,17 +6,7 @@ TODO:
 - Add crawler for RPubs
 - Ability to use papers, theses, certificates, etc as supporting documents/additional info.
 - consider to use multiple replicas in the MongoDB replica set for availability, redundancy and fault tolerance.
-
-Docker Setup
-- Installation: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04
-- Docker Compose Install: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04
-- Docker Compose version: https://docs.docker.com/compose/compose-file/compose-versioning/
-
-RabbitMQ Service Setup
-- Image: Uses RabbitMQ 3 with management plugin based on Alpine Linux.
-- Container Name: anuks
-- Ports: Exposes RabbitMQ on port 5673 for message queue communication and 15673 for management console access (default 5672 and 15672 respectively).
-- Volumes: Maps local directories for RabbitMQ data and log storage, ensuring persistence and easy access to logs.
+- consider to use Firestore for easier integration with GCP services
 
 ## ETL
 
@@ -35,6 +25,12 @@ Tools used:
 Note for LinkedIN scraping: if it says "Join LinkedIN" as the Name, it has hit an authwall.
 
 Flow: crawlers (python) -> cloud build -> artifact registry -> cloud run
+
+RabbitMQ Service Setup
+- Image: Uses RabbitMQ 3 with management plugin based on Alpine Linux.
+- Container Name: anuks
+- Ports: Exposes RabbitMQ on port 5673 for message queue communication and 15673 for management console access (default 5672 and 15672 respectively).
+- Volumes: Maps local directories for RabbitMQ data and log storage, ensuring persistence and easy access to logs.
 
 ## Streaming
 
