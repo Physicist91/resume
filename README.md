@@ -6,6 +6,14 @@ TODO:
 - Add crawler for RPubs
 - Ability to use papers, theses, certificates, etc as supporting documents/additional info.
 
+Docker Compose version: https://docs.docker.com/compose/compose-file/compose-versioning/
+
+RabbitMQ Service Setup
+- Image: Uses RabbitMQ 3 with management plugin based on Alpine Linux.
+- Container Name: anuks
+- Ports: Exposes RabbitMQ on port 5673 for message queue communication and 15673 for management console access (default 5672 and 15672 respectively).
+- Volumes: Maps local directories for RabbitMQ data and log storage, ensuring persistence and easy access to logs.
+
 ## ETL
 
 Baseline steps for data collection (each platform would have its own crawler put into Cloud Run):
