@@ -1,0 +1,8 @@
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# log files
+log/
+
+# exploration notebooks
+langchain-explore/
