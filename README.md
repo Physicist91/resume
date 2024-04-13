@@ -5,8 +5,12 @@ TODO:
 - Dispatch crawlers to Cloud Run (Kevin)
 - Add crawler for RPubs
 - Ability to use papers, theses, certificates, etc as supporting documents/additional info.
+- consider to use multiple replicas in the MongoDB replica set for availability, redundancy and fault tolerance.
 
-Docker Compose version: https://docs.docker.com/compose/compose-file/compose-versioning/
+Docker Setup
+- Installation: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04
+- Docker Compose Install: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04
+- Docker Compose version: https://docs.docker.com/compose/compose-file/compose-versioning/
 
 RabbitMQ Service Setup
 - Image: Uses RabbitMQ 3 with management plugin based on Alpine Linux.
@@ -27,9 +31,6 @@ Tools used:
 - The [MongoDB Atlas](https://cloud.mongodb.com/v2/660abf1ce806e029b03e3496#/overview) acts as NoSQL DB for the various sources.
 - Google Chrome acts as the web browser. [Install](https://askubuntu.com/questions/1461513/help-with-installing-the-chrome-web-browser-22-04-2-lts) it on the VM.
 - Chrome driver. Instruction [here](https://skolo.online/documents/webscrapping/#step-2-install-chromedriver)
-
-Future improvement:
-- may also consider to use multiple replicas in the MongoDB replica set for availability, redundancy and fault tolerance. 
 
 Note for LinkedIN scraping: if it says "Join LinkedIN" as the Name, it has hit an authwall.
 
@@ -69,6 +70,20 @@ The user query can be as simple as the Job Description text (copied and paste e.
 Resumes generated from the LLM will be returned to the users and ideally be logged back into the prompt monitoring dashboard as well. We can use Vertex AI from GCP for the training and inference pipeline (may be a bit costly), or use Qwak for the deployment.
 
 ## References
+
+### Docker 
+
+Docker Setup
+- Installation: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04
+- Docker Compose Install: https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04
+- Docker Compose version: https://docs.docker.com/compose/compose-file/compose-versioning/
+- Authenticate with Artifact Registry: https://cloud.google.com/artifact-registry/docs/docker/authentication
+
+Docker commands:
+- Tag your image: `docker tag anuks_mq:v001 asia-southeast1-docker.pkg.dev/civil-oarlock-418910/resumify-docker/anuks_mq:v001`
+- Push to Artifact Registry: `docker push gcr.io/civil-oarlock-418910/[IMAGE:TAG]`
+
+### Prompt Enginering
 
 Best practices for prompting:
 ![image](https://github.com/Physicist91/resume/assets/4892798/4df43460-d9cd-41df-8f59-0dfdcf2f9af4)
