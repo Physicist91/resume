@@ -5,6 +5,7 @@ The handler function is the entry point for Cloud Run. In Cloud Run, the handler
 
 from typing import Any
 import lib
+import argparse
 
 from github import GithubCrawler
 from linkedin import LinkedInCrawler
@@ -37,8 +38,17 @@ def handler(event) -> dict[str, Any]:
 if __name__ == "__main__":
     """
     # Development only: run "python main.py" and test locally
-    TODO: add command line arguments
     """
+    parser = argparse.ArgumentParser(description='Create the ETL schema')
+    parser.add_argument('--crawler', metavar='platform', required=True,
+                        help='either "medium" or "github"')
+    #parser.add_argument('--schema', metavar='path', required=True,
+     #                   help='path to schema')
+    #parser.add_argument('--dem', metavar='path', required=True,
+     #                   help='path to dem')
+    args = parser.parse_args()
+    model_schema(workspace=args.workspace, schema=args.schema, dem=args.dem)
+    
     kevin_linkedin = {
         "user": "Kevin Siswandi",
         "link": "https://www.linkedin.com/in/kevinsiswandi/",
@@ -53,10 +63,11 @@ if __name__ == "__main__":
     }
     
     # if medium (bulk insert of past posts) is selected
-    links = [#'https://medium.com/nerd-for-tech/this-interactive-visualization-tool-will-supercharge-your-data-narrative-30a52569acae',
-            #'https://medium.com/@kevinsiswandi/family-tree-of-indonesias-famous-individuals-e2c9ade360a3',
-            #'https://medium.com/@kevinsiswandi/the-data-science-process-135c76c0926b',
-            #'https://medium.com/@kevinsiswandi/a-slice-of-social-psychology-expectations-matter-3b840fc8cf84',
+    # downstream also need to handle duplicate posts
+    links = ['https://medium.com/nerd-for-tech/this-interactive-visualization-tool-will-supercharge-your-data-narrative-30a52569acae',
+            'https://medium.com/@kevinsiswandi/family-tree-of-indonesias-famous-individuals-e2c9ade360a3',
+            'https://medium.com/@kevinsiswandi/the-data-science-process-135c76c0926b',
+            'https://medium.com/@kevinsiswandi/a-slice-of-social-psychology-expectations-matter-3b840fc8cf84',
             'https://medium.com/@kevinsiswandi/agile-methods-kanban-vs-scrum-4d797ee1944',
             'https://medium.com/@kevinsiswandi/introduction-to-agile-methodology-bd3c7617cdfa',
             'https://medium.com/@kevinsiswandi/7-steps-to-acing-a-coding-interview-325e034723ab',

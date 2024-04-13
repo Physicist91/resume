@@ -20,6 +20,9 @@ Tools used:
 - Google Chrome acts as the web browser. [Install](https://askubuntu.com/questions/1461513/help-with-installing-the-chrome-web-browser-22-04-2-lts) it on the VM.
 - Chrome driver. Instruction [here](https://skolo.online/documents/webscrapping/#step-2-install-chromedriver)
 
+Future improvement:
+- may also consider to use multiple replicas in the MongoDB replica set for availability, redundancy and fault tolerance. 
+
 Note for LinkedIN scraping: if it says "Join LinkedIN" as the Name, it has hit an authwall.
 
 Flow: crawlers (python) -> cloud build -> artifact registry -> cloud run

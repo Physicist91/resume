@@ -13,7 +13,7 @@ import certifi
 ca = certifi.where()
 
 class MongoDatabaseConnector:
-    _instance: MongoClient | None = None
+    _instance: MongoClient = None
 
     def __new__(cls, *args, **kwargs) -> MongoClient:
         if cls._instance is None:
