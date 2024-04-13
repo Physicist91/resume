@@ -1,0 +1,51 @@
+Job title: Sales engineer
+Company: Snowflake
+
+
+Roles & Responsibilities
+
+There is only one Data Cloud. Snowflake’s founders started from scratch and designed a data platform built for the cloud that is effective, affordable, and accessible to all data users. But it didn’t stop there. They engineered Snowflake to power the Data Cloud, where thousands of organizations unlock the value of their data with near-unlimited scale, concurrency, and performance. This is our vision: a world with endless insights to tackle the challenges and opportunities of today and reveal the possibilities of tomorrow.
+
+
+
+We are looking for world-class sales engineers to join our field teams whose technical skills and customer savvy will help customers understand and utilize the value of the cutting-edge data platform that we are building.
+
+The Sales Engineer will work hand-in-hand with Sales, Product, Engineering, and Marketing. She/he will be responsible for providing the technical expertise to make Snowflake customers successful. This sales engineer will have a broad range of skills and experience ranging from data architecture to ETL/ELT, data science, security, performance analysis, analytics, etc. He/she will have the insight to make the connection between a customer’s specific business problems and Snowflake’s solution, the customer-facing skills to communicate that connection and vision to a wide variety of technical and executive audiences, and the technical skills to be able to not only build demos and execute proof-of-concepts but also to provide consultative assistance on architecture and implementation.
+
+
+
+The person we’re looking for shares our passion about reinventing the data platform and thrives in a dynamic environment. That means having the flexibility and willingness to jump in and get done what needs to be done to make Snowflake and our customers successful. It means keeping up to date on the ever-evolving technologies for data and analytics in order to be an authoritative resource for both Snowflake and customers. And it means working collaboratively with a broad range of people, both inside and outside the company.
+
+
+
+RESPONSIBILITIES:
+
+Present Snowflake technology and vision to executives and technical contributors at prospects and customers.
+Work hands-on with prospects and customers to demonstrate and communicate the value of Snowflake technology throughout the sales cycle, from demo to proof of concept to design and implementation.
+Maintain a deep understanding of competitive and complementary technologies and vendors and how to position Snowflake in relation to them.
+Collaborate with Product Management, Engineering, and Marketing to continuously improve Snowflake’s products and marketing.
+Be an advocate and develop mutual trust with technical audience on the customer side.
+MINIMUM REQUIREMENTS:
+
+Minimum 5 years of experience working with customers in a technical role.
+Minimum 5 years of experience as a data architect, data scientist, or data engineer.
+Outstanding skills presenting to both technical and executive audiences, whether impromptu on a whiteboard or using presentations and demos.
+Understanding of complete data stack and workflow, from ETL to data platform design to BI and analytics tools.
+Strong skills in databases, data warehouses, and data processing.
+Hands-on expertise with SQL and Python
+STRONGLY DESIRED:
+
+Data Science knowledge and experience
+University degree in computer science, engineering, mathematics or related fields, or equivalent experience.
+Software development experience with Java, Spark and other Scripting languages
+Extensive knowledge of and experience with large-scale database technology (e.g. Netezza, Exadata, Teradata, Greenplum, Hadoop etc.).
+Experience and track record of success selling data and/or analytics software to enterprise customers; includes proven skills identifying key stakeholders, winning value propositions, and compelling events.
+ADDED BONUS FOR:
+
+Strong Data Science/AI/ML experience across a variety of platforms
+Familiarity and experience with common BI and data exploration tools (e.g. Tableau, PowerBI, Metabase etc).
+Cloud Provider Experience - Amazon AWS, Microsoft Azure, and Google Cloud
+Experience using AWS services such as S3, Kinesis, Elastic MapReduce, Data Pipeline.
+OLAP Data modeling and data architecture experience
+Experience selling enterprise SaaS software.
+Proven success at enterprise software start-ups.
