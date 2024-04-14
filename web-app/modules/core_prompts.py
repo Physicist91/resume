@@ -3,6 +3,8 @@ import os
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import JsonOutputParser
+from langchain.prompts import PromptTemplate
 
 # Load AI model
 os.environ["GOOGLE_API_KEY"] = st.secrets["GOOGLE_API_KEY"]
@@ -29,7 +31,8 @@ def summarize_job(job_desc):
 def enhance_resume(resume_text, job_desc):
     prompt = ChatPromptTemplate.from_template("Make a personalized resume with the following resume {resume_text},\
                                               to apply to a job with a description {job_desc}.\
-                                              Please stay truthful to the given information, and do not make up numbers.")
+                                              Please stay truthful to the given information, and do not make up numbers.\
+                                              Give a markdown line break to delineate each section.")
     output_parser = StrOutputParser()
     chain = prompt | model | output_parser
     resume_new = chain.invoke({"job_desc": job_desc, "resume_text": resume_text})

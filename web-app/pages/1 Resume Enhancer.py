@@ -1,6 +1,7 @@
 import streamlit as st
 from modules import core_prompts as cp
 from modules import gif_generator as gg
+from modules import formatter as fmt
 
 # Set page title
 st.set_page_config(page_title="Resume Enhancer by ANUKS")
@@ -41,12 +42,38 @@ match st.session_state['res_enh_state']:
 
         # Processing resume
         resume_text_generated = cp.enhance_resume(st.session_state['resume_text_original'], job_desc)
-        st.session_state['resume_text_generated'] = resume_text_generated
+        st.session_state['resume_text'] = resume_text_generated
         st.session_state['res_enh_state'] = "resume_ready"
         st.rerun()
 
     case "resume_ready":
-        st.markdown(st.session_state['resume_text_generated'])
+        st.markdown(st.session_state['resume_text'])
+        with st.sidebar:
+            st.markdown("### Customization")
+            if st.button("Edit Resume Text"):
+                st.session_state['res_enh_state'] = "resume_text_edit"
+                st.rerun()
+            st.download_button(label="Save as Markdown",
+                               data=st.session_state['resume_text'],
+                               file_name='resume.md',
+                               mime='text/markdown')
+            st.download_button(label="Save as PDF",
+                               data=fmt.convert_pdf(st.session_state['resume_text']),
+                               file_name='resume.pdf',
+                               mime='pdf')
+            if st.button("Regenerate Resume"):
+                st.session_state['res_enh_state'] = "initialize"
+                st.rerun()
+
+    case "resume_text_edit":
+        st.session_state['resume_text'] = st.text_area(label="Resume markdown text:",
+                                                       value = st.session_state['resume_text'],
+                                                       height = 500)
+        with st.sidebar:
+            st.markdown("### Customization")
+            if st.button("Finish editing"):
+                st.session_state['res_enh_state'] = "resume_ready"
+                st.rerun()
 
     case _:
         st.warning("Error found in the session_state")
