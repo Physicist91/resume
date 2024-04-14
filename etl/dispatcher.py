@@ -1,7 +1,5 @@
 import re
-
-from basecrawler import BaseCrawler
-
+from etl.basecrawler import BaseCrawler
 
 class CrawlerDispatcher:
     """

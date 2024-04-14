@@ -1,5 +1,12 @@
 import json
+# set up the Google Cloud Logging python client library
+import google.cloud.logging
+client = google.cloud.logging.Client()
+client.setup_logging()
+# use Python’s standard logging library to send logs to GCP
 import logging
+
+from config import settings
 
 from bson import json_util
 
@@ -52,4 +59,4 @@ def stream_process(database_name: str):
 
 
 if __name__ == "__main__":
-    stream_process()
+    stream_process(settings.DATABASE_NAME)

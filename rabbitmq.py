@@ -1,5 +1,5 @@
 import pika
-from settings import settings
+from config import settings
 
 class RabbitMQConnection:
     """Singleton class to establish and manage connection to the RabbitMQ server .

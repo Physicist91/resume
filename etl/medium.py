@@ -11,7 +11,7 @@ cl.addHandler(file_handler)
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
 
-from basecrawler import BaseAbstractCrawler
+from etl.basecrawler import BaseAbstractCrawler
 from documents import ArticleDocument
 
 

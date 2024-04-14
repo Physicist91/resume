@@ -7,7 +7,7 @@ import shutil
 import subprocess
 import tempfile
 
-from basecrawler import BaseCrawler
+from etl.basecrawler import BaseCrawler
 from documents import RepositoryDocument
 
 # set up the Google Cloud Logging python client library
