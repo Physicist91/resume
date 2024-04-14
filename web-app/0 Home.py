@@ -13,11 +13,11 @@ def load_split_pdf(file):
 def check_completion():
     if st.session_state['resume_text_original'] is None:
         st.warning('Please upload your resume.', icon="⚠️")
-    elif st.session_state['job_title'] is "":
+    elif st.session_state['job_title'] == "":
         st.warning('Please input the job title.', icon="⚠️")
-    elif st.session_state['company_name'] is "":
+    elif st.session_state['company_name'] == "":
         st.warning('Please input the company name.', icon="⚠️")
-    elif st.session_state['job_description'] is "":
+    elif st.session_state['job_description'] == "":
         st.warning('Please input the job description.', icon="⚠️")
     else:
         st.session_state['form_filled'] = True
@@ -33,12 +33,9 @@ if 'company_name' not in st.session_state:
 if 'job_description' not in st.session_state:
     st.session_state['job_description'] = ""
 
-# Set title page
-st.set_page_config(
-        page_title="Resumify by ANUKS",
-)
+# Set page title
+st.set_page_config(page_title="Resumify by ANUKS")
 
-# Render page
 st.markdown("# Resumify")
 st.markdown("Version 0.1")
 st.markdown("#### Enhance your resume and generate cover letter for your dream job!")
@@ -70,6 +67,7 @@ with col1:
     if st.button("Enhance resume", use_container_width=True):
         # Check whether all fields have been filled
         if check_completion():
+            st.session_state['res_enh_state'] = "initialize"
             st.switch_page('pages/1 Resume Enhancer.py')
 with col2:
     if st.button("Generate cover letter", use_container_width=True):
