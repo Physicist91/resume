@@ -21,9 +21,9 @@ client = google.cloud.logging.Client()
 client.setup_logging()
 # use Python’s standard logging library to send logs to GCP
 import logging
-cl = logging.getLogger()
-file_handler = logging.FileHandler('log/linkedin_crawler.log')
-cl.addHandler(file_handler)
+#cl = logging.getLogger()
+#file_handler = logging.FileHandler('log/linkedin_crawler.log')
+#cl.addHandler(file_handler)
 
 class LinkedInCrawler(BaseAbstractCrawler):
 

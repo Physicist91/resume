@@ -6,6 +6,7 @@ The handler function is the entry point for Cloud Run. In Cloud Run, the handler
 from typing import Any
 import lib
 import argparse
+from datetime import datetime
 
 from etl.github import GithubCrawler
 from etl.linkedin import LinkedInCrawler
@@ -15,6 +16,17 @@ from documents import UserDocument
 
 _dispatcher = CrawlerDispatcher()
 #_dispatcher.register("linkedin", LinkedInCrawler)
+
+import google.cloud.logging
+client = google.cloud.logging.Client()
+client.setup_logging()
+# use Python’s standard logging library to send logs to GCP
+import logging
+cl = logging.getLogger()
+file_handler = logging.FileHandler('log/{:%Y-%m-%d}.log'.format(datetime.now()))
+formatter = logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+cl.addHandler(file_handler)
+cl.setFormatter(formatter)
 
 def handler(event) -> dict[str, Any]:
     first_name, last_name = lib.user_to_names(event.get("user"))
@@ -62,7 +74,37 @@ if __name__ == "__main__":
             github_handler = {"user": 'Physicist91', 'link': 'https://github.com/Physicist91/trading'}
             handler(github_handler)
         elif mode == 'bulk':
-            pass
+            links = ['https://github.com/Physicist91/uwhpsc',
+                     'https://github.com/Physicist91/ProgrammingAssignment2',
+                     'https://github.com/Physicist91/get-clean-data',
+                     'https://github.com/Physicist91/RepData_PeerAssessment1',
+                     'https://github.com/Physicist91/R_speed_tips',
+                     'https://github.com/Physicist91/statistics-dsc5101',
+                     'https://github.com/Physicist91/santander2',
+                     'https://github.com/Physicist91/talkingdata',
+                     'https://github.com/Physicist91/kobe',
+                     'https://github.com/Physicist91/sentiment',
+                     'https://github.com/Physicist91/contain-yourself',
+                     'https://github.com/Physicist91/dvfp',
+                     'https://github.com/Physicist91/light-matter',
+                     'https://github.com/Physicist91/predmachlearn',
+                     'https://github.com/Physicist91/oopfsc',
+                     'https://github.com/Physicist91/swiftkey',
+                     'https://github.com/Physicist91/sentiment-analysis',
+                     'https://github.com/Physicist91/systems-identification',
+                     'https://github.com/Physicist91/plagiarism-detector',
+                     'https://github.com/Physicist91/sagemaker-template',
+                     'https://github.com/Physicist91/covid19',
+                     'https://github.com/Physicist91/ml-notes',
+                     'https://github.com/Physicist91/clinic-ai',
+                     'https://github.com/Physicist91/pytorch-intro',
+                     'https://github.com/Physicist91/copd-ml',
+                     'https://github.com/Physicist91/genai-quick',
+                     'https://github.com/Physicist91/data-tools',
+                     'https://github.com/Physicist91/ai-twin'
+            ]
+            for link in links:
+                handler({"user": 'Physicist91', 'link': link})
         else:
             raise Exception("Mode {} is not supported.".format(mode))
         
@@ -72,12 +114,14 @@ if __name__ == "__main__":
         if mode == 'latest':
             kevin_medium_latest = {
                 "user": "Kevin Siswandi",
-                "link" : "https://medium.com/@kevinsiswandi/can-we-predict-deadly-chronic-disease-early-using-data-science-d43ac55bea97"
+                "link" : "https://medium.com/@kevinsiswandi/a-primer-to-language-model-eaf4b41aec5f"
             }
             handler(kevin_medium_latest)
         elif mode == 'bulk': # bulk insert of past posts 
             # downstream also need to handle duplicate posts
-            links = ['https://medium.com/nerd-for-tech/this-interactive-visualization-tool-will-supercharge-your-data-narrative-30a52569acae',
+            links = ['https://medium.com/@kevinsiswandi/productionalising-machine-learning-models-8ba95fc65457',
+                'https://medium.com/@kevinsiswandi/can-we-predict-deadly-chronic-disease-early-using-data-science-d43ac55bea97',
+                'https://medium.com/nerd-for-tech/this-interactive-visualization-tool-will-supercharge-your-data-narrative-30a52569acae',
                     'https://medium.com/@kevinsiswandi/family-tree-of-indonesias-famous-individuals-e2c9ade360a3',
                     'https://medium.com/@kevinsiswandi/the-data-science-process-135c76c0926b',
                     'https://medium.com/@kevinsiswandi/a-slice-of-social-psychology-expectations-matter-3b840fc8cf84',
@@ -91,8 +135,7 @@ if __name__ == "__main__":
                     'https://medium.com/@kevinsiswandi/introduction-to-artificial-intelligence-for-medicine-b0fad1aedd5a',
                     'https://medium.com/@kevinsiswandi/tutorial-of-the-star-method-for-answering-behavioural-interview-questions-415a038551cc']
             for link in links:
-                medium_handler = {'user':'Kevin Siswandi', 'link':link}
-                handler(medium_handler)
+                handler({'user':'Kevin Siswandi', 'link':link})
         else:
             raise Exception('Mode is not supported for {}'.format(mode))
         
