@@ -7,26 +7,24 @@ from typing import Any
 import lib
 import argparse
 from datetime import datetime
+import time
 
 from etl.github import GithubCrawler
 from etl.linkedin import LinkedInCrawler
 from etl.medium import MediumCrawler
 from etl.dispatcher import CrawlerDispatcher
-from documents import UserDocument
+from etl.documents import UserDocument
 
 _dispatcher = CrawlerDispatcher()
 #_dispatcher.register("linkedin", LinkedInCrawler)
 
-import google.cloud.logging
-client = google.cloud.logging.Client()
-client.setup_logging()
 # use Python’s standard logging library to send logs to GCP
 import logging
 cl = logging.getLogger()
 file_handler = logging.FileHandler('log/{:%Y-%m-%d}.log'.format(datetime.now()))
 formatter = logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+file_handler.setFormatter(formatter)
 cl.addHandler(file_handler)
-cl.setFormatter(formatter)
 
 def handler(event) -> dict[str, Any]:
     first_name, last_name = lib.user_to_names(event.get("user"))
@@ -71,7 +69,7 @@ if __name__ == "__main__":
         _dispatcher.register("github", GithubCrawler)
         
         if mode == 'latest':
-            github_handler = {"user": 'Physicist91', 'link': 'https://github.com/Physicist91/trading'}
+            github_handler = {"user": 'Physicist91', 'link': 'https://github.com/Physicist91/Physicist91'}
             handler(github_handler)
         elif mode == 'bulk':
             links = ['https://github.com/Physicist91/uwhpsc',
@@ -101,10 +99,12 @@ if __name__ == "__main__":
                      'https://github.com/Physicist91/copd-ml',
                      'https://github.com/Physicist91/genai-quick',
                      'https://github.com/Physicist91/data-tools',
-                     'https://github.com/Physicist91/ai-twin'
+                     'https://github.com/Physicist91/ai-twin',
+                     'https://github.com/Physicist91/trading'
             ]
             for link in links:
                 handler({"user": 'Physicist91', 'link': link})
+                time.sleep(2)
         else:
             raise Exception("Mode {} is not supported.".format(mode))
         

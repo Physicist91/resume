@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
 
 from etl.basecrawler import BaseAbstractCrawler
-from documents import ArticleDocument
+from etl.documents import ArticleDocument
 
 
 class MediumCrawler(BaseAbstractCrawler):
