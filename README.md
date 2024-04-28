@@ -1,6 +1,8 @@
 # Resumify
 
-### Tailored Resume Generator for Your Dream Job
+### Your friendly job search assistant
+
+*With Resumify, you can build tailored resume, cover letter, and much more to get that dream job.*
 
 TODO (Kevin):
 
@@ -53,7 +55,7 @@ The streaming component ingests data from the message queue. The hierarchy of da
 3. chunked (inherits from cleaned)
 4. embedded (inherits from chunked)
 
-Each data type (article, post, code) will have their own class for the states 1-4. The raw data (i.e. output from ETL) can be processed in one of two ways:
+Each data type (article, post, code) has their own class for the states 1-4. Each data type (and its state) is modeled using Pydantic models. The raw data (i.e. output from ETL) can be processed in one of two ways:
 
 1. clean and store in NoSQL fashion
 2. clean, chunk, and embed then stored using vector indices into a vector DB.
@@ -62,6 +64,8 @@ In both cases, the data will be stored into a vector DB (with or without vector 
 
 1. cleaned data to create prompts and answers
 2. chunked and embedded data for RAG
+
+**Handler + dispatcher architecture**: use a [creational factory pattern](https://refactoring.guru/design-patterns/abstract-factory) to instantiate a handler implemented for that specific data type (post, article, code) and operation (cleaning, chunking, embedding). The handler follows the [strategy behavioral pattern](https://refactoring.guru/design-patterns/strategy). This allow us to process multiple types of data in a single streaming pipeline by leveraging polymorphism to isolate the logic for a given data type and operation.
 
 The streaming pipeline can be deployed to GCP and we can use either the freemium serverless version of Qdrant or Vertex AI Feature Store from GCP for the vector DB.
 

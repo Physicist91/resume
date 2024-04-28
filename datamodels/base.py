@@ -1,3 +1,7 @@
+"""
+Each data type (and its state) will be modeled using Pydantic models.
+"""
+
 from abc import ABC, abstractmethod
 
 from pydantic import BaseModel
