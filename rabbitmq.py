@@ -110,3 +110,4 @@ if __name__ == "__main__":
     rabbitmq_conn = RabbitMQConnection()
     rabbmitmq_conn.publish_to_rabbitmq("test_queue", "The quick brown fox jumps over the lazy dog.")
     #rabbmitmq_conn.publish_to_rabbitmq("mongo_data", "Monggo lewat")
+    rabbitmq_conn.close()
