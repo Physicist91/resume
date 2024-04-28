@@ -2,7 +2,7 @@ from typing import Tuple
 
 import numpy as np
 
-from models.base import DBDataModel
+from datamodels.base import DBDataModel
 
 
 class PostEmbeddedChunkModel(DBDataModel):

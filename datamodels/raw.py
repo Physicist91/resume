@@ -1,6 +1,6 @@
 from typing import Optional
 
-from models.base import DataModel
+from datamodels.base import DataModel
 
 
 class RepositoryRawModel(DataModel):

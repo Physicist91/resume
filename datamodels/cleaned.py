@@ -1,6 +1,6 @@
 from typing import Optional, Tuple
 
-from models.base import DBDataModel
+from datamodels.base import DBDataModel
 
 
 class PostCleanedModel(DBDataModel):
