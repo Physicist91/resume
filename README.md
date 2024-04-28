@@ -6,6 +6,7 @@ TODO:
 
 - Dispatch crawlers to Cloud Run (Kevin)
 - Add crawler for RPubs
+- Add crawler for Blogspot
 - Ability to use papers, theses, certificates, etc as supporting documents/additional info.
 - consider to use multiple replicas in the MongoDB replica set for availability, redundancy and fault tolerance.
 - consider to use Firestore for easier integration with GCP services
@@ -45,7 +46,14 @@ RabbitMQ Service Setup
 
 ## Streaming
 
-We need a streaming component to ingest data from the message queue. We can use Bytewax (Rust streaming engine with Python interface) to listen to the queue. The raw data (i.e. output from ETL) can be processed in one of two ways:
+The streaming component ingests data from the message queue. The hierarchy of data models will be:
+
+1. raw (inherits from base model)
+2. cleaned (inherits from raw)
+3. chunked (inherits from cleaned)
+4. embedded (inherits from chunked)
+
+Each data type (article, post, code) will have their own class for the states 1-4. The raw data (i.e. output from ETL) can be processed in one of two ways:
 
 1. clean and store in NoSQL fashion
 2. clean, chunk, and embed then stored using vector indices into a vector DB.
