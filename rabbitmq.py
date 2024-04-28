@@ -61,6 +61,37 @@ class RabbitMQConnection:
             if not self.fail_silently:
                 raise e
 
+    def publish_message(self, data: str, queue_name: str):
+        """Connects to RabbitMQ
+        - ensures that the message delivery is confirmed for reliability.
+        - publishes the data to the queue.
+
+        The data variable, which is expected to be a JSON string, represents the changes captured by MongoDB's CDC mechanism.
+        """
+        
+        # Establish connection
+        channel = self.get_channel()
+        
+        # Ensure the queue exists
+        channel.queue_declare(
+            queue=queue_name, durable=True, exclusive=False, auto_delete=False
+        )
+        
+        channel.confirm_delivery()
+
+        try:
+            # Send data to the queue
+            channel.basic_publish(
+                exchange="", routing_key=queue_name, body=data, mandatory=True, properties=pika.BasicProperties(
+                    delivery_mode=2,  # make message persistent
+                )
+            )
+            print("sent changes to RabbitMQ:", data)
+        except pika.exceptions.UnroutableError:
+            print("Message could not be confirmed")
+        except Exception as e:
+            print(f"Error publishing to RabbitMQ: {e}")
+            
     def is_connected(self) -> bool:
         return self._connection is not None and self._connection.is_open
 
@@ -74,39 +105,8 @@ class RabbitMQConnection:
             self._connection = None
             print("Closed RabbitMQ connection")
 
-def publish_to_rabbitmq(queue_name: str, data: str):
-    """Connects to RabbitMQ , ensures that the message delivery is confirmed for reliability, and then publishes the data to the queue.
-
-    The data variable, which is expected to be a JSON string, represents the changes captured by MongoDB's CDC mechanism.
-    """
-    try:
-        # Create an instance of RabbitMQConnection
-        rabbitmq_conn = RabbitMQConnection()
-
-        # Establish connection
-        with rabbitmq_conn:
-            channel = rabbitmq_conn.get_channel()
-
-            # Ensure the queue exists
-            channel.queue_declare(queue=queue_name, durable=True)
-
-            # Delivery confirmation
-            channel.confirm_delivery()
-
-            # Send data to the queue
-            channel.basic_publish(
-                exchange="",
-                routing_key=queue_name,
-                body=data,
-                properties=pika.BasicProperties(
-                    delivery_mode=2,  # make message persistent
-                ),
-            )
-            print("Sent data to RabbitMQ:", data)
-    except pika.exceptions.UnroutableError:
-        print("Message could not be routed")
-    except Exception as e:
-        print(f"Error publishing to RabbitMQ: {e}")
 
 if __name__ == "__main__":
-    publish_to_rabbitmq("test_queue", "The quick brown fox jumps over the lazy dog.")
+    rabbitmq_conn = RabbitMQConnection()
+    rabbmitmq_conn.publish_to_rabbitmq("test_queue", "The quick brown fox jumps over the lazy dog.")
+    #rabbmitmq_conn.publish_to_rabbitmq("mongo_data", "Monggo lewat")

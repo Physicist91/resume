@@ -6,8 +6,8 @@ We implemented a dispatcher layer that knows how to apply data-specific operatio
 import bytewax.operators as op
 from bytewax.dataflow import Dataflow
 
-from data_flow.stream_input import RabbitMQSource
-from data_flow.stream_output import QdrantOutput
+from feature.input import RabbitMQSource
+from feature.output import QdrantOutput
 from data_logic.dispatchers import (
     ChunkingDispatcher,
     CleaningDispatcher,
