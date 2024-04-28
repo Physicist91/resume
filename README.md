@@ -2,9 +2,9 @@
 
 ### Tailored Resume Generator for Your Dream Job
 
-TODO:
+TODO (Kevin):
 
-- Dispatch crawlers to Cloud Run (Kevin)
+- Dispatch crawlers to Cloud Run
 - Add crawler for RPubs
 - Add crawler for Blogspot
 - Ability to use papers, theses, certificates, etc as supporting documents/additional info.
