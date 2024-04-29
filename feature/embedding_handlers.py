@@ -28,7 +28,7 @@ class PostEmbeddingHandler(EmbeddingDataHandler):
             platform=data_model.platform,
             chunk_id=data_model.chunk_id,
             chunk_content=data_model.chunk_content,
-            embedded_content=embedd_text(data_model.chunk_content),
+            embedded_content=embed_text(data_model.chunk_content),
             author_id=data_model.author_id,
             type=data_model.type,
         )
@@ -42,7 +42,7 @@ class ArticleEmbeddingHandler(EmbeddingDataHandler):
             link=data_model.link,
             chunk_content=data_model.chunk_content,
             chunk_id=data_model.chunk_id,
-            embedded_content=embedd_text(data_model.chunk_content),
+            embedded_content=embed_text(data_model.chunk_content),
             author_id=data_model.author_id,
             type=data_model.type,
         )
@@ -56,7 +56,7 @@ class RepositoryEmbeddingHandler(EmbeddingDataHandler):
             link=data_model.link,
             chunk_id=data_model.chunk_id,
             chunk_content=data_model.chunk_content,
-            embedded_content=embedd_text(data_model.chunk_content),
+            embedded_content=embed_text(data_model.chunk_content),
             owner_id=data_model.owner_id,
             type=data_model.type,
         )
