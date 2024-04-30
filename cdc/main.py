@@ -1,5 +1,6 @@
 import json
 from bson import json_util
+from datetime import datetime
 
 # set up the Google Cloud Logging python client library
 import google.cloud.logging
@@ -7,6 +8,11 @@ client = google.cloud.logging.Client()
 client.setup_logging()
 # use Python’s standard logging library to send logs to GCP
 import logging
+cl = logging.getLogger()
+file_handler = logging.FileHandler('log/cdc_{:%Y-%m-%d}.log'.format(datetime.now()))
+formatter = logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+file_handler.setFormatter(formatter)
+cl.addHandler(file_handler)
 
 from rabbitmq import RabbitMQConnection
 from mongodb import MongoDatabaseConnector
@@ -25,13 +31,10 @@ def stream_process():
     using the $match and a few other aggregation pipeline stages which limit the amount of data to receive.
     """
     try:
-        # Setup queue
-        mq_connection = RabbitMQConnection()
-        mq_connection.connect()
         
         # Setup MongoDB connection
         client = MongoDatabaseConnector()
-        db = client[settings.database_name]
+        db = client[settings.DATABASE_NAME]
         logging.info("Connected to MongoDB.")
 
         # The core of the CDC pattern in MongoDB is realized through the watch method.
@@ -55,6 +58,8 @@ def stream_process():
             logging.info(f"Change detected and serialized: {data}")
 
             # Send data to rabbitmq
+            mq_connection = RabbitMQConnection()
+            mq_connection.connect()
             mq_connection.publish_message(data=data, queue="mongo_data")
             logging.info("Data published to RabbitMQ.")
 

@@ -21,30 +21,24 @@ TODO (Adrian):
 
 ## ETL
 
-Baseline steps for data collection (each platform would have its own crawler put into Cloud Run):
+The general data collection steps are (each platform would have its own crawler put into Cloud Run):
 
-- log in using user credentials
 - use selenium to crawl user profile
 - use BeatifulSoup to parse the HTML
 - clean & normalize the extracted HTML
-- save the normalized (but still raw) data to MongoDB
+- save the result to MongoDB
 
 Tools used:
 
 - The [MongoDB Atlas](https://cloud.mongodb.com/v2/660abf1ce806e029b03e3496#/overview) acts as NoSQL DB for the various sources.
 - Google Chrome acts as the web browser. [Install](https://askubuntu.com/questions/1461513/help-with-installing-the-chrome-web-browser-22-04-2-lts) it on the VM.
 - Chrome driver. Instruction [here](https://skolo.online/documents/webscrapping/#step-2-install-chromedriver)
+- RabbitMQ: https://console.cloud.google.com/marketplace/product/google/rabbitmq3
 
 Note for LinkedIN scraping: if it says "Join LinkedIN" as the Name, it has hit an authwall.
 
 Flow: crawlers (python) -> cloud build -> artifact registry -> cloud run
 
-RabbitMQ Service Setup
-
-- Image: Uses RabbitMQ 3 with management plugin based on Alpine Linux.
-- Container Name: anuks
-- Ports: Exposes RabbitMQ on port 5673 for message queue communication and 15673 for management console access (default 5672 and 15672 respectively).
-- Volumes: Maps local directories for RabbitMQ data and log storage, ensuring persistence and easy access to logs.
 
 ## Streaming
 
