@@ -19,7 +19,7 @@ def embed_text(text: str):
 def embed_repositories(text: str):
     # embedding model used for the code repositories
     # This embedding model can be customized on the fly with instructions based on your particular data.
-    # This allows the embedding model to specialize on your data without fine-tuning, which is handy for embedding pieces of code.
+    # This allows the embedding model to specialize on your data without fine-tuning: good for embedding pieces of code.
     # https://huggingface.co/hkunlp/instructor-xl
     model = INSTRUCTOR("hkunlp/instructor-xl")
     sentence = text

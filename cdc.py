@@ -1,4 +1,6 @@
 import json
+from bson import json_util
+
 # set up the Google Cloud Logging python client library
 import google.cloud.logging
 client = google.cloud.logging.Client()
@@ -6,18 +8,14 @@ client.setup_logging()
 # use Python’s standard logging library to send logs to GCP
 import logging
 
-from config import settings
-
-from bson import json_util
-
-from queue import publish_to_rabbitmq
+from rabbitmq import RabbitMQConnection
 from mongodb import MongoDatabaseConnector
 from config import settings
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
-def stream_process(database_name: str):
+def stream_process():
     """
     A function that processes changes in a specific MongoDB collection.
     It watches for changes, converts ObjectId to strings, serializes documents using json_util,
@@ -27,12 +25,18 @@ def stream_process(database_name: str):
     using the $match and a few other aggregation pipeline stages which limit the amount of data to receive.
     """
     try:
+        # Setup queue
+        mq_connection = RabbitMQConnection()
+        mq_connection.connect()
+        
         # Setup MongoDB connection
         client = MongoDatabaseConnector()
-        db = client[database_name]
+        db = client[settings.database_name]
         logging.info("Connected to MongoDB.")
 
-        # Watch changes in a specific collection
+        # The core of the CDC pattern in MongoDB is realized through the watch method.
+        # sets up a change stream to monitor for specific types of changes in the database.
+        # In this case, it's configured to listen for insert operations in any collection within the database.
         changes = db.watch([{"$match": {"operationType": {"$in": ["insert"]}}}])
         for change in changes:
             """
@@ -51,7 +55,7 @@ def stream_process(database_name: str):
             logging.info(f"Change detected and serialized: {data}")
 
             # Send data to rabbitmq
-            publish_to_rabbitmq(queue_name="test_queue", data=data)
+            mq_connection.publish_message(data=data, queue="mongo_data")
             logging.info("Data published to RabbitMQ.")
 
     except Exception as e:
@@ -59,4 +63,4 @@ def stream_process(database_name: str):
 
 
 if __name__ == "__main__":
-    stream_process(settings.DATABASE_NAME)
+    stream_process()
