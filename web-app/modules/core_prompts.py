@@ -115,7 +115,8 @@ def generate_interview_answer(resume_text, chat_history, short=True):
                                               {resume_text}\n\n\
                                               With a recent interview conversation as follow:\n\
                                               {interview_exchange}\n\
-                                              craft a tactful {length} response to the interviewer's question. Do not use any symbol.")
+                                              craft a tactful {length} response to the interviewer's question.\n\
+                                              Start the response immediately, and do not use any symbol.")
     output_parser = StrOutputParser()
     chain = prompt | model | output_parser
     result = chain.invoke({"resume_text": resume_text, "interview_exchange": interview_exchange, "length": length})
