@@ -35,8 +35,8 @@ class RabbitMQConnection:
     ):
         self.host = host or settings.RABBITMQ_HOST
         self.port = port or settings.RABBITMQ_PORT
-        self.username = username
-        self.password = password
+        self.username = username or settings.RABBITMQ_DEFAULT_USERNAME
+        self.password = password or settings.RABBITMQ_DEFAULT_PASSWORD
         self.virtual_host = virtual_host
         self.fail_silently = fail_silently
         self._connection = None
