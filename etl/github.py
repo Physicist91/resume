@@ -7,13 +7,9 @@ import shutil
 import subprocess
 import tempfile
 
-from etl.basecrawler import BaseCrawler
-from etl.documents import RepositoryDocument
+from basecrawler import BaseCrawler
+from documents import RepositoryDocument
 
-# set up the Google Cloud Logging python client library
-import google.cloud.logging
-client = google.cloud.logging.Client()
-client.setup_logging()
 # use Python’s standard logging library to send logs to GCP
 import logging
 

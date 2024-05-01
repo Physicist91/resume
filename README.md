@@ -35,10 +35,13 @@ Tools used:
 - Chrome driver. Instruction [here](https://skolo.online/documents/webscrapping/#step-2-install-chromedriver)
 - RabbitMQ: https://console.cloud.google.com/marketplace/product/google/rabbitmq3
 
-Note for LinkedIN scraping: if it says "Join LinkedIN" as the Name, it has hit an authwall.
+Tricky bits:
+- for LinkedIN scraping: if it says "Join LinkedIN" as the Name, it has hit an authwall.
+- `bson` package should not be installed separately, it should be installed via pymongo.
 
 Flow: crawlers (python) -> cloud build -> artifact registry -> cloud run
 
+The CDC and message broker are deployed on GCE.
 
 ## Streaming
 

@@ -12,8 +12,8 @@ logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.by import By
 
-from etl.basecrawler import BaseAbstractCrawler
-from etl.documents import ArticleDocument
+from basecrawler import BaseAbstractCrawler
+from documents import ArticleDocument
 
 
 class MediumCrawler(BaseAbstractCrawler):

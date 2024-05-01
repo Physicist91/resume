@@ -9,20 +9,24 @@ import argparse
 from datetime import datetime
 import time
 
-from etl.github import GithubCrawler
-from etl.linkedin import LinkedInCrawler
-from etl.medium import MediumCrawler
-from etl.dispatcher import CrawlerDispatcher
-from etl.documents import UserDocument
+from github import GithubCrawler
+from linkedin import LinkedInCrawler
+from medium import MediumCrawler
+from dispatcher import CrawlerDispatcher
+from documents import UserDocument
 
 _dispatcher = CrawlerDispatcher()
 #_dispatcher.register("linkedin", LinkedInCrawler)
 
+# set up the Google Cloud Logging python client library
+import google.cloud.logging
+client = google.cloud.logging.Client()
+client.setup_logging()
 # use Python’s standard logging library to send logs to GCP
 import logging
 cl = logging.getLogger()
+formatter = logging.basicConfig(format='%(asctime)s %(message)s', level = logging.INFO)
 file_handler = logging.FileHandler('log/{:%Y-%m-%d}.log'.format(datetime.now()))
-formatter = logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 file_handler.setFormatter(formatter)
 cl.addHandler(file_handler)
 
@@ -69,10 +73,11 @@ if __name__ == "__main__":
         _dispatcher.register("github", GithubCrawler)
         
         if mode == 'latest':
-            github_handler = {"user": 'Physicist91', 'link': 'https://github.com/Physicist91/Physicist91'}
+            github_handler = {"user": 'Physicist91', 'link': 'https://github.com/Physicist91/data-tools'}
             handler(github_handler)
         elif mode == 'bulk':
             links = ['https://github.com/Physicist91/uwhpsc',
+                     'https://github.com/Physicist91/Physicist91',
                      'https://github.com/Physicist91/ProgrammingAssignment2',
                      'https://github.com/Physicist91/get-clean-data',
                      'https://github.com/Physicist91/RepData_PeerAssessment1',

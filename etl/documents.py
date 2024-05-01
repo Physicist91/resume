@@ -14,7 +14,7 @@ import uuid
 from typing import List, Optional
 
 from config import settings
-from etl.mongodb import connection
+from mongodb import connection
 from pydantic import UUID4, BaseModel, ConfigDict, Field
 from pymongo.errors import WriteError, OperationFailure
 
