@@ -37,7 +37,7 @@ if 'job_description' not in st.session_state:
 st.set_page_config(page_title="Resumify by ANUKS")
 
 st.markdown("# Resumify")
-st.markdown("Version 0.2 (almost)")
+st.markdown("Version 0.1")
 st.markdown("#### Enhance your resume and generate cover letter for your dream job!")
 st.markdown("With the power of AI, you can tailor and personalize your resume and cover letter for your dream job.  \
             Upload and make your own persona, and the resume and cover letter **speak like yourself**.")
