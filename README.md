@@ -10,7 +10,6 @@ TODO (Kevin):
 - Add crawler for RPubs
 - Add crawler for Blogspot
 - Ability to use papers, theses, certificates, etc as supporting documents/additional info.
-- consider to use multiple replicas in the MongoDB replica set for availability, redundancy and fault tolerance.
 - consider to use Firestore for easier integration with GCP services
 
 TODO (Adrian):
@@ -64,7 +63,7 @@ In both cases, the data will be stored into a vector DB (with or without vector 
 
 **Handler + dispatcher architecture**: use a [creational factory pattern](https://refactoring.guru/design-patterns/abstract-factory) to instantiate a handler implemented for that specific data type (post, article, code) and operation (cleaning, chunking, embedding). The handler follows the [strategy behavioral pattern](https://refactoring.guru/design-patterns/strategy). This allow us to process multiple types of data in a single streaming pipeline by leveraging polymorphism to isolate the logic for a given data type and operation.
 
-The streaming pipeline can be deployed to GCP and we can use either the freemium serverless version of Qdrant or Vertex AI Feature Store from GCP for the vector DB.
+The streaming pipeline can be deployed to GCP and we can use the freemium serverless version of Qdrant for the vector DB. This would need `qdrant-client`: https://github.com/qdrant/qdrant-client.
 
 ## Training
 

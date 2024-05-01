@@ -6,15 +6,10 @@ We implemented a dispatcher layer that knows how to apply data-specific operatio
 import bytewax.operators as op
 from bytewax.dataflow import Dataflow
 
-from feature.input import RabbitMQSource
-from feature.output import QdrantOutput
-from data_logic.dispatchers import (
-    ChunkingDispatcher,
-    CleaningDispatcher,
-    EmbeddingDispatcher,
-    RawDispatcher,
-)
-from db.qdrant import connection
+from input import RabbitMQSource
+from output import QdrantOutput
+from dispatchers import ChunkingDispatcher, CleaningDispatcher, EmbeddingDispatcher, RawDispatcher
+from qdrant import connection
 
 # define bytewax flow
 flow = Dataflow("Streaming ingestion pipeline")

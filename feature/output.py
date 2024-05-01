@@ -7,7 +7,7 @@ To try first using a single partition per worker. The idea is to have the abilit
 """
 
 from bytewax.outputs import DynamicSink, StatelessSinkPartition
-from db.qdrant import QdrantDatabaseConnector
+from qdrant import QdrantDatabaseConnector
 from datamodels.base import DBDataModel
 from qdrant_client.http.api_client import UnexpectedResponse
 from qdrant_client.models import Batch #https://qdrant.tech/documentation/concepts/points/
