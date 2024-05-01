@@ -35,8 +35,8 @@ class RabbitMQConnection:
     ):
         self.host = host or settings.RABBITMQ_HOST
         self.port = port or settings.RABBITMQ_PORT
-        self.username = username or settings.RABBITMQ_DEFAULT_USERNAME
-        self.password = password or settings.RABBITMQ_DEFAULT_PASSWORD
+        self.username = username
+        self.password = password
         self.virtual_host = virtual_host
         self.fail_silently = fail_silently
         self._connection = None
@@ -108,6 +108,6 @@ class RabbitMQConnection:
 
 if __name__ == "__main__":
     rabbitmq_conn = RabbitMQConnection()
-    rabbmitmq_conn.publish_to_rabbitmq("test_queue", "The quick brown fox jumps over the lazy dog.")
-    #rabbmitmq_conn.publish_to_rabbitmq("mongo_data", "Monggo lewat")
-    rabbitmq_conn.close()
+    with rabbitmq_conn:
+        rabbitmq_conn.publish_message("The quick brown fox jumps over the lazy dog.", "test_queue")
+        #rabbmitmq_conn.publish_to_rabbitmq("mongo_data", "Monggo lewat")
