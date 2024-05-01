@@ -10,16 +10,13 @@ client.setup_logging()
 import logging
 cl = logging.getLogger()
 file_handler = logging.FileHandler('log/cdc_{:%Y-%m-%d}.log'.format(datetime.now()))
-formatter = logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+formatter = logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 file_handler.setFormatter(formatter)
 cl.addHandler(file_handler)
 
 from rabbitmq import RabbitMQConnection
 from mongodb import MongoDatabaseConnector
 from config import settings
-
-# Configure logging
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 def stream_process():
     """

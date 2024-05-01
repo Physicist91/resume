@@ -18,12 +18,16 @@ from documents import UserDocument
 _dispatcher = CrawlerDispatcher()
 #_dispatcher.register("linkedin", LinkedInCrawler)
 
+# set up the Google Cloud Logging python client library
+import google.cloud.logging
+client = google.cloud.logging.Client()
+client.setup_logging()
 # use Python’s standard logging library to send logs to GCP
 import logging
-formatter = logging.basicConfig(format='%(asctime)s %(message)s', level = logging.INFO, datefmt='%Y-%m-%d %H:%M:%S')
+cl = logging.getLogger()
+formatter = logging.basicConfig(format='%(asctime)s %(message)s', level = logging.INFO)
 file_handler = logging.FileHandler('log/{:%Y-%m-%d}.log'.format(datetime.now()))
 file_handler.setFormatter(formatter)
-cl = logging.getLogger()
 cl.addHandler(file_handler)
 
 def handler(event) -> dict[str, Any]:
