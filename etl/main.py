@@ -20,10 +20,10 @@ _dispatcher = CrawlerDispatcher()
 
 # use Python’s standard logging library to send logs to GCP
 import logging
-cl = logging.getLogger()
+formatter = logging.basicConfig(format='%(asctime)s %(message)s', level = logging.INFO, datefmt='%Y-%m-%d %H:%M:%S')
 file_handler = logging.FileHandler('log/{:%Y-%m-%d}.log'.format(datetime.now()))
-formatter = logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 file_handler.setFormatter(formatter)
+cl = logging.getLogger()
 cl.addHandler(file_handler)
 
 def handler(event) -> dict[str, Any]:
@@ -69,7 +69,7 @@ if __name__ == "__main__":
         _dispatcher.register("github", GithubCrawler)
         
         if mode == 'latest':
-            github_handler = {"user": 'Physicist91', 'link': 'https://github.com/Physicist91/get-clean-data'}
+            github_handler = {"user": 'Physicist91', 'link': 'https://github.com/Physicist91/data-tools'}
             handler(github_handler)
         elif mode == 'bulk':
             links = ['https://github.com/Physicist91/uwhpsc',

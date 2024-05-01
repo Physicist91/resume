@@ -12,8 +12,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
 from config import settings
-from etl.basecrawler import BaseAbstractCrawler
-from etl.documents import PostDocument, ProfileDocument
+from basecrawler import BaseAbstractCrawler
+from documents import PostDocument, ProfileDocument
 
 # set up the Google Cloud Logging python client library
 import google.cloud.logging

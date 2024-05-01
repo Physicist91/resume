@@ -60,7 +60,7 @@ def stream_process():
             # Send data to rabbitmq
             mq_connection = RabbitMQConnection()
             mq_connection.connect()
-            mq_connection.publish_message(data=data, queue="mongo_data")
+            mq_connection.publish_message(data=data, queue_name="mongo_data")
             logging.info("Data published to RabbitMQ.")
 
     except Exception as e:
