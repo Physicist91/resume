@@ -70,10 +70,16 @@ match st.session_state['res_enh_state']:
                                                        value = st.session_state['resume_text'],
                                                        height = 500)
         with st.sidebar:
-            st.markdown("### Customization")
-            if st.button("Finish editing"):
+            if st.button("Finish editing", type="primary", use_container_width=True):
                 st.session_state['res_enh_state'] = "resume_ready"
                 st.rerun()
+
+            st.markdown("### AI Rephrase Assist")
+            rephrase_text = st.text_area('Input text to rephrase', placeholder='Give me the job please')
+            rephrase_instruction = st.text_input('Input instruction (if any)', placeholder='more polite')
+            if st.button("Rephrase"):
+                rephrase_result = cp.rephrase_text(rephrase_text, rephrase_instruction)
+                st.markdown(rephrase_result)
 
     case _:
         st.warning("Error found in the session_state")

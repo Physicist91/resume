@@ -37,7 +37,7 @@ if 'job_description' not in st.session_state:
 st.set_page_config(page_title="Resumify by ANUKS")
 
 st.markdown("# Resumify")
-st.markdown("Version 0.1")
+st.markdown("Version 0.2 (almost)")
 st.markdown("#### Enhance your resume and generate cover letter for your dream job!")
 st.markdown("With the power of AI, you can tailor and personalize your resume and cover letter for your dream job.  \
             Upload and make your own persona, and the resume and cover letter **speak like yourself**.")
@@ -62,7 +62,7 @@ st.session_state['job_description'] = st.text_area('Job description', value=st.s
                                                    placeholder="Responsibilities, requirements, etc (just copy paste lah)")
 
 # Submission buttons
-col1, col2 = st.columns([1,1])
+col1, col2, col3 = st.columns([1,1,1])
 with col1:
     if st.button("Enhance resume", use_container_width=True):
         # Check whether all fields have been filled
@@ -74,3 +74,8 @@ with col2:
         # Check whether all fields have been filled
         if check_completion():
             st.switch_page('pages/2 Cover Letter Generator.py')
+with col3:
+    if st.button("Interview simulator", use_container_width=True):
+        # Check whether all fields have been filled
+        if check_completion():
+            st.switch_page('pages/3 Interview Simulator.py')
