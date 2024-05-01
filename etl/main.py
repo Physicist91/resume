@@ -9,11 +9,11 @@ import argparse
 from datetime import datetime
 import time
 
-from etl.github import GithubCrawler
-from etl.linkedin import LinkedInCrawler
-from etl.medium import MediumCrawler
-from etl.dispatcher import CrawlerDispatcher
-from etl.documents import UserDocument
+from github import GithubCrawler
+from linkedin import LinkedInCrawler
+from medium import MediumCrawler
+from dispatcher import CrawlerDispatcher
+from documents import UserDocument
 
 _dispatcher = CrawlerDispatcher()
 #_dispatcher.register("linkedin", LinkedInCrawler)
@@ -69,10 +69,11 @@ if __name__ == "__main__":
         _dispatcher.register("github", GithubCrawler)
         
         if mode == 'latest':
-            github_handler = {"user": 'Physicist91', 'link': 'https://github.com/Physicist91/Physicist91'}
+            github_handler = {"user": 'Physicist91', 'link': 'https://github.com/Physicist91/get-clean-data'}
             handler(github_handler)
         elif mode == 'bulk':
             links = ['https://github.com/Physicist91/uwhpsc',
+                     'https://github.com/Physicist91/Physicist91',
                      'https://github.com/Physicist91/ProgrammingAssignment2',
                      'https://github.com/Physicist91/get-clean-data',
                      'https://github.com/Physicist91/RepData_PeerAssessment1',
