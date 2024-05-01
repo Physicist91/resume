@@ -39,6 +39,7 @@ Note for LinkedIN scraping: if it says "Join LinkedIN" as the Name, it has hit a
 
 Flow: crawlers (python) -> cloud build -> artifact registry -> cloud run
 
+The CDC and message broker are deployed on GCE.
 
 ## Streaming
 
