@@ -14,9 +14,9 @@ TODO (Kevin):
 
 TODO (Adrian):
 
-- Web-app with streamlit v.0.1 is done. Will deploy as a cloud run soon
-- Will work on edit resume and publish (save as pdf) features.
-- Discuss with Kevin about resume text storage and plan for integration (and with persona from RAG or further model tuning)
+- Make persona integration with the UI via vectordB
+- Explore RAG to learn and copy user's writing styles
+- Fine-tune LLM model to approximate user's writing style
 
 ## ETL
 
