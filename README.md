@@ -4,7 +4,7 @@
 
 *With Resumify, you can build tailored resume, cover letter, and much more to get that dream job.*
 
-![]("Resumify Architecture.png")
+![](Resumify Architecture.png)
 
 TODO (Kevin):
 
