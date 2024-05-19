@@ -6,3 +6,6 @@ log/
 
 # exploration notebooks
 langchain-explore/
+
+# config files
+config.py
