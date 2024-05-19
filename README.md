@@ -46,7 +46,11 @@ The CDC and message broker are deployed on GCE.
 
 ## Streaming
 
-The streaming component ingests data from the message queue. The hierarchy of data models will be:
+The streaming service ingests data from the message queue. Note that the data can be of different types (article or code). Each data type will have the same set of abstract operations (cleaning, chunking, and embedding) defined but the implementation will differ according to the data type itself. Hence, to process the data in the streaming pipeline, we use the **Handler + dispatcher architecture**:
+1. write a dispatcher layer using [creational factory pattern](https://refactoring.guru/design-patterns/abstract-factory) to instantiate a handler.
+2. implement the handler for a specific data type and operation using the [strategy behavioral pattern](https://refactoring.guru/design-patterns/strategy). This allow us to process multiple types of data in a single streaming pipeline by leveraging polymorphism to isolate the logic for a given data type and operation.
+
+The hierarchy of data models will be:
 
 1. raw (inherits from base model)
 2. cleaned (inherits from raw)
@@ -63,7 +67,6 @@ In both cases, the data will be stored into a vector DB (with or without vector 
 1. cleaned data to create prompts and answers
 2. chunked and embedded data for RAG
 
-**Handler + dispatcher architecture**: use a [creational factory pattern](https://refactoring.guru/design-patterns/abstract-factory) to instantiate a handler implemented for that specific data type (either article or code) and operation (cleaning, chunking, embedding). The handler follows the [strategy behavioral pattern](https://refactoring.guru/design-patterns/strategy). This allow us to process multiple types of data in a single streaming pipeline by leveraging polymorphism to isolate the logic for a given data type and operation.
 
 The streaming pipeline can be deployed to GCP and we can use the freemium serverless version of Qdrant for the vector DB. This would need `qdrant-client`: https://github.com/qdrant/qdrant-client.
 
