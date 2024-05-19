@@ -4,19 +4,19 @@ The dispatcher layer has two components:
 2. a dispatcher class: the glue code that calls the factory class and handler
 """
 
-from feature.chunking_handlers import (
+from chunking_handlers import (
     ArticleChunkingHandler,
     ChunkingDataHandler,
     PostChunkingHandler,
     RepositoryChunkingHandler,
 )
-from feature.cleaning_handlers import (
+from cleaning_handlers import (
     ArticleCleaningHandler,
     CleaningDataHandler,
     PostCleaningHandler,
     RepositoryCleaningHandler,
 )
-from data_logic.embedding_handlers import (
+from embedding_handlers import (
     ArticleEmbeddingHandler,
     EmbeddingDataHandler,
     PostEmbeddingHandler,

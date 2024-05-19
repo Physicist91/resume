@@ -6,6 +6,12 @@
 
 ![](architecture-resumify.png)
 
+Done:
+
+- The CDC service and message broker based on [RabbitMQ](https://console.cloud.google.com/marketplace/product/google/rabbitmq3) are deployed on GCE.
+- The [MongoDB Atlas](https://cloud.mongodb.com/v2/660abf1ce806e029b03e3496#/overview) is setup as a NoSQL data warehouse for ETL.
+- Latest version of web app is deployed on https://webapp-v-0-1-lexhyzrpgq-uc.a.run.app/
+
 TODO (Kevin):
 
 - Integrate Qdrant Vector DB to the system
@@ -29,12 +35,9 @@ The general data collection steps are (each platform would have its own crawler 
 - clean & normalize the extracted HTML
 - save the result to MongoDB
 
-Tools used:
-
-- The [MongoDB Atlas](https://cloud.mongodb.com/v2/660abf1ce806e029b03e3496#/overview) acts as NoSQL DB for the various sources.
+Scraping Engine:
 - Google Chrome acts as the web browser. [Install](https://askubuntu.com/questions/1461513/help-with-installing-the-chrome-web-browser-22-04-2-lts) it on the VM.
 - Chrome driver. Instruction [here](https://skolo.online/documents/webscrapping/#step-2-install-chromedriver)
-- RabbitMQ: https://console.cloud.google.com/marketplace/product/google/rabbitmq3
 
 Tricky bits:
 - for LinkedIN scraping: if it says "Join LinkedIN" as the Name, it has hit an authwall.
@@ -42,22 +45,22 @@ Tricky bits:
 
 Flow: crawlers (python) -> cloud build -> artifact registry -> cloud run
 
-The CDC and message broker are deployed on GCE.
-
 ## Streaming
 
 The streaming service ingests data from the message queue. Note that the data can be of different types (article or code). Each data type will have the same set of abstract operations (cleaning, chunking, and embedding) defined but the implementation will differ according to the data type itself. Hence, to process the data in the streaming pipeline, we use the **Handler + dispatcher architecture**:
 1. write a dispatcher layer using [creational factory pattern](https://refactoring.guru/design-patterns/abstract-factory) to instantiate a handler.
 2. implement the handler for a specific data type and operation using the [strategy behavioral pattern](https://refactoring.guru/design-patterns/strategy). This allow us to process multiple types of data in a single streaming pipeline by leveraging polymorphism to isolate the logic for a given data type and operation.
 
-The hierarchy of data models will be:
+The streaming engine used is Bytewax, which can be integrated easily with Python libraries such as HuggingFace, sklearn, numpy, etc. The Bytewax flow in the streaming pipeline is defined in `pipeline.py` as: input --> processing (clean/chunk/embed) --> output. The Bytewax operators to define the operation graph are `input()`, `map()`, and `output()`.
 
-1. raw (inherits from base model)
-2. cleaned (inherits from raw)
-3. chunked (inherits from cleaned)
-4. embedded (inherits from chunked)
+The hierarchy of data models will be (each implemented as its own Python script):
 
-Each data type (article or code) has their own class for the states 1-4. Each data type (and its state) is modeled using Pydantic models. The raw data (i.e. output from ETL) can be processed in one of two ways:
+1. raw (inherits from base model) in `raw.py`
+2. cleaned (inherits from raw) in `cleaned.py`
+3. chunked (inherits from cleaned) in `chunk.py`
+4. embedded (inherits from chunked) in `embedded.py`
+
+Each data type (article or code) has their own class for the states 1-4, modeled using **Pydantic models**. The data can be processed in one of two ways:
 
 1. clean and store in NoSQL fashion
 2. clean, chunk, and embed then stored using vector indices into a vector DB.
@@ -67,6 +70,7 @@ In both cases, the data will be stored into a vector DB (with or without vector 
 1. cleaned data to create prompts and answers
 2. chunked and embedded data for RAG
 
+To load data into the vector DB, we create a QDrant connector by inheriting from Bytewax DynamicSink.
 
 The streaming pipeline can be deployed to GCP and we can use the freemium serverless version of Qdrant for the vector DB. This would need `qdrant-client`: https://github.com/qdrant/qdrant-client.
 

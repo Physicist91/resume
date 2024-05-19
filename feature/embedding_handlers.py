@@ -7,7 +7,7 @@ from datamodels.embedded import (
     PostEmbeddedChunkModel,
     RepositoryEmbeddedChunkModel,
 )
-from utils.embeddings import embedd_text
+from embedding_utils import embed_text
 
 
 class EmbeddingDataHandler(ABC):
