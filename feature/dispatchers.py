@@ -1,7 +1,7 @@
 """
 The dispatcher layer has two components:
 1. a factory class: instantiates the right handler based on the type of the event
-2. a dispatcher class: the glue code that calls the factory class and handler
+2. a dispatcher class: the glue code that calls the factory class and applies the data-specific handler operation
 """
 
 from chunking_handlers import (
@@ -88,7 +88,7 @@ class ChunkingHandlerFactory:
 
 
 class ChunkingDispatcher:
-    cleaning_factory = ChunkingHandlerFactory
+    cleaning_factory = ChunkingHandlerFactory()
 
     @classmethod
     def dispatch_chunker(cls, data_model: DataModel) -> list[DataModel]:
@@ -113,7 +113,7 @@ class EmbeddingHandlerFactory:
 
 
 class EmbeddingDispatcher:
-    cleaning_factory = EmbeddingHandlerFactory
+    cleaning_factory = EmbeddingHandlerFactory()
 
     @classmethod
     def dispatch_embedder(cls, data_model: DataModel) -> DataModel:
