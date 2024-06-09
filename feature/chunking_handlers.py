@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from datamodels.base import DataModel
 from datamodels.chunk import ArticleChunkModel, PostChunkModel, RepositoryChunkModel
 from datamodels.cleaned import ArticleCleanedModel, PostCleanedModel, RepositoryCleanedModel
-from utils.chunking import chunk_text
+from chunking_utils import chunk_text
 
 
 class ChunkingDataHandler(ABC):

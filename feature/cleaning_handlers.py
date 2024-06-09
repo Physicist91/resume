@@ -9,7 +9,7 @@ from abc import ABC, abstractmethod
 from datamodels.base import DataModel
 from datamodels.cleaned import ArticleCleanedModel, PostCleanedModel, RepositoryCleanedModel
 from datamodels.raw import ArticleRawModel, PostsRawModel, RepositoryRawModel
-from feature.cleaning_utils import clean_text
+from cleaning_utils import clean_text
 
 
 class CleaningDataHandler(ABC):
