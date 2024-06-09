@@ -1,5 +1,9 @@
 """
 Each data type (and its state) will be modeled using Pydantic models.
+
+Wee define a hierarchy of Pydantic models for:
+    - all our data types: posts, articles, or code
+    - all our states: raw, cleaned, chunked, and embedded
 """
 
 from abc import ABC, abstractmethod
@@ -19,9 +23,6 @@ class DataModel(ABC, BaseModel):
 class DBDataModel(DataModel):
     """
     Abstract class for all data models that need to be serialized and saved into a vector DB
-    Afterward, we define a hierarchy of Pydantic models for:
-    - all our data types: posts, articles, or code
-    - all our states: raw, cleaned, chunked, and embedded
     """
 
     entry_id: int

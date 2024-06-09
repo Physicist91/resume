@@ -60,7 +60,13 @@ The hierarchy of data models will be (each implemented as its own Python script)
 3. chunked (inherits from cleaned) in `chunk.py`
 4. embedded (inherits from chunked) in `embedded.py`
 
-Each data type (article or code) has their own class for the states 1-4, modeled using **Pydantic models**. The data can be processed in one of two ways:
+Each data type (article or code) has their own class for the states 1-4, modeled using **Pydantic models**. To map the data from one state to another (e.g. from raw data model to cleaned data model), we use a set of Handler classes:
+
+1. CleaningDataHandler
+2. ChunkingDataHandler
+3. EmbeddingDataHandler 
+
+The data can be processed in one of two ways:
 
 1. clean and store in NoSQL fashion
 2. clean, chunk, and embed then stored using vector indices into a vector DB.
@@ -70,7 +76,7 @@ In both cases, the data will be stored into a vector DB (with or without vector 
 1. cleaned data to create prompts and answers
 2. chunked and embedded data for RAG
 
-To load data into the vector DB, we create a QDrant connector by inheriting from Bytewax DynamicSink.
+To load data into the vector DB, we create a QDrant connector by inheriting from Bytewax DynamicSink. Since there are two different outputs (unindexed data for the training/fine-tuning and vector data for the RAG inference), we subclass the Bytewax StatelessSinkPartition to create custom stateless worker/partition for each output type.
 
 The streaming pipeline can be deployed to GCP and we can use the freemium serverless version of Qdrant for the vector DB. This would need `qdrant-client`: https://github.com/qdrant/qdrant-client.
 

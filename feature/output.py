@@ -3,7 +3,12 @@ Load output data to vector DB.
 
 For every type of operation (cleaned or embedded) we have to subclass the StatelessSinkPartition Bytewax class (although stateful option is also available).
 An instance of the class will run on every partition defined within the Bytewax deployment.
-To try first using a single partition per worker. The idea is to have the ability to scale the Bytewax pipeline horizontally by adding more partitions (and workers).
+To try first using a single partition per worker.
+The idea is to have the ability to scale the Bytewax pipeline horizontally by adding more partitions (and workers).
+
+Note that we used Qdrant’s Batch method to upload all the available points simultaneously.
+By doing so, we reduce the latency on the network I/O side
+Reference: https://qdrant.tech/documentation/concepts/points/#upload-points
 """
 
 from bytewax.outputs import DynamicSink, StatelessSinkPartition
