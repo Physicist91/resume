@@ -31,7 +31,7 @@ match st.session_state['res_enh_state']:
     case "processing":
         # Processing the data
         st.markdown("## Resume Enhancer")
-        job_desc = cp.check_and_summarize_job(st.session_state)
+        # job_desc = cp.check_and_summarize_job(st.session_state)
         st.write("Your dream resume will be here in just a few seconds...")
 
         # Gif generator 
@@ -41,7 +41,7 @@ match st.session_state['res_enh_state']:
             st.markdown("![Some random job gif :)]({})".format(gif_url))
 
         # Processing resume
-        resume_text_generated = cp.enhance_resume(st.session_state['resume_text_original'], job_desc)
+        resume_text_generated = cp.enhance_resume2(st.session_state['resume_text_original'], st.session_state)
         st.session_state['resume_text'] = resume_text_generated
         st.session_state['res_enh_state'] = "resume_ready"
         st.rerun()

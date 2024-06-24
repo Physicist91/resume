@@ -36,6 +36,31 @@ def enhance_resume(resume_text, job_desc):
     resume_new = chain.invoke({"job_desc": job_desc, "resume_text": resume_text})
     return resume_new
 
+def enhance_resume2(resume_text, session_data):
+    # Try to improve the resume generation
+    # To reduce hallucination of resume text, we do the following chain:
+    # 1. Ask AI to find the relevant information the job description that helps in resume
+    # 2. Ask AI to thereafter personalize the resume with the info
+    prompt1 = ChatPromptTemplate.from_template("From the following job_description:\
+                                                \n{job_description} \n -- END OF JOB DESCRIPTION -- \n\
+                                               Find the relevant information to address in a resume!")
+    output_parser = StrOutputParser()
+    chain = prompt1 | model | output_parser
+    job_info = chain.invoke({"job_description": session_data['job_description']})
+    print(job_info)
+
+    prompt2 = ChatPromptTemplate.from_template("Personalize the following resume:\
+                                               {resume_text} \n -- END OF RESUME -- \n\
+                                               to apply to a job with a description:\
+                                               {job_info} \n -- END OF JOB DESCRIPTION -- \n\
+                                              Please stay truthful to the given information, and do not make up numbers.\
+                                              Give a markdown line break to delineate each section.")
+    output_parser = StrOutputParser()
+    chain = prompt2 | model | output_parser
+    resume_new = chain.invoke({"resume_text": resume_text, "job_info": job_info})
+
+    return resume_new
+
 def generate_cover_letter(resume_text, job_desc):
     prompt = ChatPromptTemplate.from_template("Make a personalized cover letter with the following resume {resume_text},\
                                               to apply to a job with a description {job_desc},\
@@ -44,6 +69,39 @@ def generate_cover_letter(resume_text, job_desc):
     output_parser = StrOutputParser()
     chain = prompt | model | output_parser
     cover_letter = chain.invoke({"job_desc": job_desc, "resume_text": resume_text})
+    return cover_letter
+
+def generate_cover_letter2(resume_text, session_data):
+    # Try to improve the cover letter generation
+    # To reduce hallucination and over-representation of resume text, we do the following chain:
+    # 1. Ask AI to find the relevant information in the resume that helps in cover lettter
+    # 2. Ask AI to find the relevant information in the job description that helps in cover letter 
+    # 3. Ask AI to thereafter write the cover letter with the info
+    prompt1 = ChatPromptTemplate.from_template("From the following resume:\
+                                                \n{resume_text} \n -- END OF RESUME -- \n\
+                                               Find the relevant information and candidate strengths to craft a cover letter!") 
+    output_parser = StrOutputParser()
+    chain = prompt1 | model | output_parser
+    resume_info = chain.invoke({"resume_text": resume_text})
+    # print(resume_info)
+
+    prompt2 = ChatPromptTemplate.from_template("From the following job_description:\
+                                                \n{job_description} \n -- END OF JOB DESCRIPTION -- \n\
+                                               Find the relevant information to address in the cover letter!") 
+    output_parser = StrOutputParser()
+    chain = prompt2 | model | output_parser
+    job_info = chain.invoke({"job_description": session_data["job_description"]})
+    # print(job_info)
+
+    prompt3 = ChatPromptTemplate.from_template("Write a cover letter to apply as {job_title} to {company_name}.\
+                                                With the relevant info from the resume {resume_info} \n \
+                                                Addressing the job description as follow {job_info} \
+                                                Stay truthful!") 
+    output_parser = StrOutputParser()
+    chain = prompt3 | model | output_parser
+    cover_letter = chain.invoke({"job_title": session_data["job_title"], "company_name": session_data["company_name"],
+                                 "resume_info": resume_info, "job_info": job_info})
+
     return cover_letter
 
 def rephrase_text(rephrase_text, rephrase_instruction):

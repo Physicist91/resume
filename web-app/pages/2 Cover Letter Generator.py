@@ -31,7 +31,7 @@ match st.session_state['cov_ltr_state']:
     case "processing":
         # Processing the data
         st.markdown("## Cover Letter Generator")
-        job_desc = cp.check_and_summarize_job(st.session_state)
+        # job_desc = cp.check_and_summarize_job(st.session_state)
         st.write("Your dream cover letter will be here in just a few seconds...")
 
         # Gif generator 
@@ -41,7 +41,8 @@ match st.session_state['cov_ltr_state']:
             st.markdown("![Some random job gif :)]({})".format(gif_url))
 
         # Processing cover letter
-        cover_letter = cp.generate_cover_letter(st.session_state['resume_text_original'], job_desc)
+        # cover_letter = cp.generate_cover_letter(st.session_state['resume_text_original'], job_desc)
+        cover_letter = cp.generate_cover_letter2(st.session_state['resume_text_original'], st.session_state)
         st.session_state['cover_letter_text'] = cover_letter
         st.session_state['cov_ltr_state'] = "cover_letter_ready"
         st.rerun()
