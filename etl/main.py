@@ -53,12 +53,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Create the ETL schema')
     parser.add_argument('--crawler', metavar='platform', required=True,
                         help='either "medium" or "github" for now.')
-    parser.add_argument('--mode', metavar='option', required=True,
-                   help='which posts or data to crawl: either "bulk" or "latest".')
+    parser.add_argument('--link', metavar='option', required=True,
+                   help='link to the article or repository.')
     #parser.add_argument('--dem', metavar='path', required=True,
      #                   help='path to dem')
     args = parser.parse_args()
-    crawler, mode = args.crawler, args.mode
+    crawler, link = args.crawler, args.link
     
     kevin_linkedin = {
         "user": "Kevin Siswandi",
@@ -72,10 +72,10 @@ if __name__ == "__main__":
     if crawler == 'github':
         _dispatcher.register("github", GithubCrawler)
         
-        if mode == 'latest':
-            github_handler = {"user": 'Physicist91', 'link': 'https://github.com/Physicist91/data-tools'}
+        if len(link) > 0:
+            github_handler = {"user": 'Physicist91', 'link': link}
             handler(github_handler)
-        elif mode == 'bulk':
+        else:
             links = ['https://github.com/Physicist91/uwhpsc',
                      'https://github.com/Physicist91/Physicist91',
                      'https://github.com/Physicist91/ProgrammingAssignment2',
@@ -110,19 +110,17 @@ if __name__ == "__main__":
             for link in links:
                 handler({"user": 'Physicist91', 'link': link})
                 time.sleep(2)
-        else:
-            raise Exception("Mode {} is not supported.".format(mode))
         
     elif crawler == 'medium':
         _dispatcher.register("medium", MediumCrawler)
         
-        if mode == 'latest':
-            kevin_medium_latest = {
-                "user": "Kevin Siswandi",
-                "link" : "https://medium.com/@kevinsiswandi/a-primer-to-language-model-eaf4b41aec5f"
-            }
-            handler(kevin_medium_latest)
-        elif mode == 'bulk': # bulk insert of past posts 
+        if len(link) > 0:
+            handler({
+                    "user": "Kevin Siswandi",
+                    "link" : link
+                })
+        else:
+            # bulk insert of past posts 
             # downstream also need to handle duplicate posts
             links = ['https://medium.com/@kevinsiswandi/productionalising-machine-learning-models-8ba95fc65457',
                 'https://medium.com/@kevinsiswandi/can-we-predict-deadly-chronic-disease-early-using-data-science-d43ac55bea97',
@@ -141,8 +139,6 @@ if __name__ == "__main__":
                     'https://medium.com/@kevinsiswandi/tutorial-of-the-star-method-for-answering-behavioural-interview-questions-415a038551cc']
             for link in links:
                 handler({'user':'Kevin Siswandi', 'link':link})
-        else:
-            raise Exception('Mode is not supported for {}'.format(mode))
         
     else:
         raise Exception("Crawler is not supported for the platform {}".format(crawler))

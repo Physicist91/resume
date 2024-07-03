@@ -49,7 +49,7 @@ class BaseAbstractCrawler(BaseCrawler):
         #self.set_driver_options(options)
         self.scroll_limit = scroll_limit
         self.driver = webdriver.Chrome(
-            service=webdriver.ChromeService("/opt/chromedriver/chromedriver"),
+            service=webdriver.ChromeService("/usr/bin/chromedriver"),
             options=options,
         )
 
