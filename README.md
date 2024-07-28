@@ -6,9 +6,6 @@
 
 ![](architecture-resumify.png)
 
-Done:
-
-- The CDC service and message broker based on [RabbitMQ](https://console.cloud.google.com/marketplace/product/google/rabbitmq3) are deployed on GCE.
 - The [MongoDB Atlas](https://cloud.mongodb.com/v2/660abf1ce806e029b03e3496#/overview) is setup as a NoSQL data warehouse for ETL.
 - Latest version of web app is deployed on https://webapp-v-0-1-lexhyzrpgq-uc.a.run.app/
 
@@ -34,10 +31,6 @@ The general data collection steps are (each platform would have its own crawler 
 - use BeatifulSoup to parse the HTML
 - clean & normalize the extracted HTML
 - save the result to MongoDB
-
-Scraping Engine:
-- Google Chrome acts as the web browser. [Install](https://askubuntu.com/questions/1461513/help-with-installing-the-chrome-web-browser-22-04-2-lts) it on the VM.
-- Chrome driver. Instruction [here](https://skolo.online/documents/webscrapping/#step-2-install-chromedriver)
 
 Tricky bits:
 - for LinkedIN scraping: if it says "Join LinkedIN" as the Name, it has hit an authwall.

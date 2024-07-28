@@ -12,7 +12,7 @@ from dispatchers import ChunkingDispatcher, CleaningDispatcher, EmbeddingDispatc
 from qdrant import connection
 
 # define bytewax flow.
-flow = Dataflow("Streaming pipeline to ingest data from Queue into Feature Store.")
+flow = Dataflow("Streaming pipeline.")
 
 # Input node in the Bytewax graph.
 stream = op.input("Read data from Queue.", flow, RabbitMQSource())

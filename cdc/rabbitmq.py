@@ -1,9 +1,14 @@
+"""
+This script is originally written for the CDC service.
+"""
+
 import pika
 from config import settings
 
 class RabbitMQConnection:
-    """Singleton class to establish and manage connection to the RabbitMQ server .
-    Handle connection parameters such as (which can be customized or defaulted from settings):
+    """
+    Singleton class to establish and manage connection to the RabbitMQ server.
+    Connection parameters (can be customized upon initialization or modified in settings):
     - username
     - password
     - queue name
@@ -11,7 +16,11 @@ class RabbitMQConnection:
     - port
     - virtual_host
 
-    This class provides methods to connect, check connection status, retrieve channels, and close the connection. 
+    Main methods:
+    * connect
+    * check connection status
+    * retrieve channels
+    * close the connection. 
     """
 
     _instance = None
