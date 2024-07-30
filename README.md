@@ -7,7 +7,7 @@
 ![](architecture-resumify.png)
 
 - The [MongoDB Atlas](https://cloud.mongodb.com/v2/660abf1ce806e029b03e3496#/overview) is setup as a NoSQL data warehouse for ETL.
-- Latest version of web app is deployed on https://webapp-v-0-1-lexhyzrpgq-uc.a.run.app/
+- Latest version of web app is deployed on https://resumify-web-app-o6wtwp7xyq-de.a.run.app/
 
 TODO (Kevin):
 
